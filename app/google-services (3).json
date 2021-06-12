@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "708209676303",
+    "project_id": "srd-slavonac-jaksic",
+    "storage_bucket": "srd-slavonac-jaksic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708209676303:android:4e9eabbfbae06343d4d37a",
+        "android_client_info": {
+          "package_name": "hr.dominik.ribolovnodrustvojaksic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708209676303-e8jsjphucflcvt1ms9uibkdnrt7jvc0s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.dominik.ribolovnodrustvojaksic",
+            "certificate_hash": "b3036a8098e5a55ff78debd8a3da99bca288ae7c"
+          }
+        },
+        {
+          "client_id": "708209676303-ubiqq0sogpvkcuevesds0mbq8mb5a508.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9MjxytEHL3Qtkiz2boB-1JE0EKr8Zsak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708209676303-ubiqq0sogpvkcuevesds0mbq8mb5a508.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
