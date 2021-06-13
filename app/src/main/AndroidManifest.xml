@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
+        <activity android:name="hr.RegisterActivity"></activity>
         <activity
             android:name="hr.LoginActivity"
             android:screenOrientation="fullSensor" />
