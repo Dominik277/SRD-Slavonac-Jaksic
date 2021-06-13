@@ -11,8 +11,7 @@
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
         <activity
             android:name="hr.LoginActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="fullSensor" />
         <activity
             android:name="hr.MainActivity"
             android:screenOrientation="fullSensor" />
