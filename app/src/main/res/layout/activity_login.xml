@@ -78,7 +78,7 @@
             android:textStyle="bold"
             android:foreground="?attr/selectableItemBackground"
             android:padding="@dimen/clickable_text_view_padding"
-            android:text="@string/register"
+            android:text="@string/btn_lbl_register"
             android:textColor="@color/black"
             android:textSize="@dimen/lbl_text_view_textSize" />
 
