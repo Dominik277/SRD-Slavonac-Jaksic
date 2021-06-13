@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
-        <activity android:name="hr.LoginActivity"></activity>
-        <activity android:name="hr.MainActivity" />
+        <activity android:name="hr.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name="hr.MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="hr.SplashActivity"
             android:screenOrientation="portrait"
