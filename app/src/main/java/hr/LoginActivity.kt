@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this,RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
     }
