@@ -18,6 +18,6 @@
     <string name="i_agree_to_the_terms_and_condition">I Agree to the Terms and Conditions</string>
     <string name="btn_lbl_register">Register</string>
 
-    <string name="already_have_an_account">Register</string>
+    <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
 </resources>
