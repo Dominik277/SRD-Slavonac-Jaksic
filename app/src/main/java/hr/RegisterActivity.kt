@@ -34,6 +34,17 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
     }
+
+    private fun setupActionBar(){
+        setSupportActionBar(binding.toolbarRegisterActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
+        }
+        binding.toolbarRegisterActivity.setNavigationOnClickListener { onBackPressed() }
+    }
+
 }
