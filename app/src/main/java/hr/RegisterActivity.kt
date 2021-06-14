@@ -29,6 +29,8 @@ class RegisterActivity : AppCompatActivity() {
             )
         }
 
+        setupActionBar()
+
         binding.tvLogin.setOnClickListener {
             val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
