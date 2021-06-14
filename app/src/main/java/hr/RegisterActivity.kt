@@ -37,6 +37,11 @@ class RegisterActivity : BaseActivity() {
             startActivity(intent)
             finish()
         }
+
+        binding.btnRegister.setOnClickListener {
+            validateRegisterDetails()
+        }
+
     }
 
     private fun setupActionBar(){
