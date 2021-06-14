@@ -64,15 +64,26 @@ class RegisterActivity : BaseActivity() {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(binding.etFirstName.text.toString().trim{it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
+            TextUtils.isEmpty(binding.etPassword.text.toString().trim{it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
-            TextUtils.isEmpty(binding.etFirstName.text.toString().trim{it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
+            TextUtils.isEmpty(binding.etConfirmPassword.text.toString().trim{it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_confirm_password), true)
                 false
+            }
+            binding.etPassword.text.toString().trim { it <= ' '} != binding.etConfirmPassword.text.toString().trim { it <= ' '} -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_password_and_confirm_password_mismatch), true)
+                false
+            }
+            !binding.cbTermsAndCondition.isChecked -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_agree_terms_and_condition),true)
+                false
+            }
+            else -> {
+                showErrorSnackBar("Your details are valid", false)
+                true
             }
         }
     }
-
 }
