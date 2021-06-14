@@ -61,7 +61,7 @@ class RegisterActivity : BaseActivity() {
                 false
             }
             TextUtils.isEmpty(binding.etEmail.text.toString().trim{it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
             TextUtils.isEmpty(binding.etFirstName.text.toString().trim{it <= ' ' }) -> {
