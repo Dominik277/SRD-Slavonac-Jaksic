@@ -7,7 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityBaseBinding
 
-class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBaseBinding
 
