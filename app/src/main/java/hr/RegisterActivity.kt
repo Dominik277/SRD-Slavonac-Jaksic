@@ -43,7 +43,7 @@ class RegisterActivity : BaseActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-            validateRegisterDetails()
+            registerUser()
         }
 
     }
@@ -90,7 +90,7 @@ class RegisterActivity : BaseActivity() {
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are valid", false)
+                //showErrorSnackBar("Your details are valid", false)
                 true
             }
         }
