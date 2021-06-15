@@ -99,7 +99,7 @@ class RegisterActivity : BaseActivity() {
     private fun registerUser(){
         if(validateRegisterDetails()){
 
-            showProgressDialog(resources.getString(R.string.please_wait))
+            showProgressDialog()
 
             val email: String = binding.etEmail.text.toString().trim{ it <= ' ' }
             val password: String = binding.etEmail.text.toString().trim{ it <= ' '}
@@ -117,6 +117,8 @@ class RegisterActivity : BaseActivity() {
                                 "You are registered successfully.Your user id is ${firebaseUser.uid}",
                                 false
                             )
+                            FirebaseAuth.getInstance().signOut()
+                            finish()
                         }else{
                             //If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)

@@ -4,13 +4,14 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityLoginBinding
 import java.nio.channels.InterruptedByTimeoutException
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityLoginBinding
 
@@ -35,6 +36,24 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
     }
+
+    override fun onClick(view: View?) {
+        if (view != null){
+            when(view.id){
+                R.id.tv_forgot_password -> {
+
+                }
+                R.id.btn_login -> {
+                    validateLoginDetails()
+                }
+                R.id.tv_register -> {
+                    val intent = Intent(this,RegisterActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+    }
+
+
 }
