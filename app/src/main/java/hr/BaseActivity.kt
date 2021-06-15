@@ -1,15 +1,19 @@
 package hr
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityBaseBinding
+import hr.dominik.ribolovnodrustvojaksic.databinding.DialogProgressBinding
 
 open class BaseActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBaseBinding
+    private lateinit var mProgressDialog: Dialog
+    private lateinit var dialogBinding: DialogProgressBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,23 @@ open class BaseActivity : AppCompatActivity() {
             )
         }
         snackBar.show()
+    }
+
+    fun showProgressDialog(text: String){
+        mProgressDialog = Dialog(this)
+
+        //Set the screen content from a layout resource
+        mProgressDialog.setContentView(R.layout.dialog_progress)
+
+        dialogBinding.tvProgressText.text = text
+        mProgressDialog.setCancelable(false)
+        mProgressDialog.setCanceledOnTouchOutside(false)
+
+        mProgressDialog.show()
+    }
+
+    fun hideProgressDialog(){
+        mProgressDialog.dismiss()
     }
 
 }
