@@ -13,7 +13,6 @@ open class BaseActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBaseBinding
     private lateinit var mProgressDialog: Dialog
-    private lateinit var dialogBinding: DialogProgressBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +43,12 @@ open class BaseActivity : AppCompatActivity() {
         snackBar.show()
     }
 
-    fun showProgressDialog(text: String){
+    fun showProgressDialog(){
         mProgressDialog = Dialog(this)
 
         //Set the screen content from a layout resource
         mProgressDialog.setContentView(R.layout.dialog_progress)
 
-        dialogBinding.tvProgressText.text = text
         mProgressDialog.setCancelable(false)
         mProgressDialog.setCanceledOnTouchOutside(false)
 
