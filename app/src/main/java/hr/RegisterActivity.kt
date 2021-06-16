@@ -37,9 +37,7 @@ class RegisterActivity : BaseActivity() {
         setupActionBar()
 
         binding.tvLogin.setOnClickListener {
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            onBackPressed()
         }
 
         binding.btnRegister.setOnClickListener {
@@ -102,7 +100,7 @@ class RegisterActivity : BaseActivity() {
             showProgressDialog()
 
             val email: String = binding.etEmail.text.toString().trim{ it <= ' ' }
-            val password: String = binding.etEmail.text.toString().trim{ it <= ' '}
+            val password: String = binding.etPassword.text.toString().trim{ it <= ' '}
 
             //Create an instance and create and register user with email and password
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)

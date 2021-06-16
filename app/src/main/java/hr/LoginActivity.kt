@@ -32,6 +32,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        binding.tvForgotPassword.setOnClickListener(this)
+        binding.btnLogin.setOnClickListener(this)
+        binding.tvRegister.setOnClickListener(this)
+
     }
 
     override fun onClick(view: View?) {
@@ -62,7 +67,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are valid.", false)
                 true
             }
         }
@@ -79,7 +83,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             val password = binding.etPassword.text.toString().trim { it <= ' '}
 
             //LogIn using FirebaseAuth
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     hideProgressDialog()
 
