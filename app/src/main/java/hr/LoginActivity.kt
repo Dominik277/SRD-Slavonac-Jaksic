@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import com.google.firebase.auth.FirebaseAuth
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityLoginBinding
 import java.nio.channels.InterruptedByTimeoutException
@@ -40,7 +41,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                 }
                 R.id.btn_login -> {
-                    validateLoginDetails()
+                    logInRegisteredUser()
                 }
                 R.id.tv_register -> {
                     val intent = Intent(this,RegisterActivity::class.java)
@@ -66,4 +67,29 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    private fun logInRegisteredUser(){
+        if (validateLoginDetails()){
+
+            //Show the progress dialog
+            showProgressDialog()
+
+            //Get the text from edittext and trim the space
+            val email = binding.etEmail.text.toString().trim { it <= ' '}
+            val password = binding.etPassword.text.toString().trim { it <= ' '}
+
+            //LogIn using FirebaseAuth
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    hideProgressDialog()
+
+                    if (task.isSuccessful){
+                        showErrorSnackBar("You are logged in successfully",false)
+                    }else{
+                        showErrorSnackBar(task.exception!!.message.toString(),true)
+                    }
+                }
+        }
+    }
+
 }
