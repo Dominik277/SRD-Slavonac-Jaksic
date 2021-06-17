@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityRegisterBinding
+import hr.firestore.FirestoreClass
 import hr.model.User
 
 class RegisterActivity : BaseActivity() {
@@ -106,7 +107,6 @@ class RegisterActivity : BaseActivity() {
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
-                        hideProgressDialog()
 
                         //If registration is successfully done
                         if (task.isSuccessful){
@@ -118,11 +118,12 @@ class RegisterActivity : BaseActivity() {
                                 binding.etEmail.text.toString().trim{ it <= ' '}
                             )
 
+                            FirestoreClass().registerUser(this,user)
 
-
-                            FirebaseAuth.getInstance().signOut()
-                            finish()
+                            //FirebaseAuth.getInstance().signOut()
+                            //finish()
                         }else{
+                            hideProgressDialog()
                             //If the registering is not successful then show error message.
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }

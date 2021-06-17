@@ -22,7 +22,7 @@ class FirestoreClass {
             .addOnSuccessListener {
                 activity.userRegistrationSuccess()
             }
-            .addOnFailureListener{ e ->
+            .addOnFailureListener{
                 activity.hideProgressDialog()
             }
     }
