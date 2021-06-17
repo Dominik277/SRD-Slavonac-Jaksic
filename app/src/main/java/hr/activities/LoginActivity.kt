@@ -1,8 +1,7 @@
-package hr
+package hr.activities
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -11,7 +10,6 @@ import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityLoginBinding
-import java.nio.channels.InterruptedByTimeoutException
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
@@ -49,7 +47,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     logInRegisteredUser()
                 }
                 R.id.tv_register -> {
-                    val intent = Intent(this,RegisterActivity::class.java)
+                    val intent = Intent(this, RegisterActivity::class.java)
                     startActivity(intent)
                 }
             }

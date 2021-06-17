@@ -9,18 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
-        <activity android:name="hr.BaseActivity"></activity>
+        <activity android:name="hr.activities.ForgotPasswordActivity"
+            android:screenOrientation="fullSensor"/>
+        <activity android:name="hr.activities.BaseActivity" />
         <activity
-            android:name="hr.RegisterActivity"
+            android:name="hr.activities.RegisterActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="hr.LoginActivity"
+            android:name="hr.activities.LoginActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="hr.MainActivity"
+            android:name="hr.activities.MainActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="hr.SplashActivity"
+            android:name="hr.activities.SplashActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
