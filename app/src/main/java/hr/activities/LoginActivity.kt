@@ -13,6 +13,7 @@ import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityLoginBinding
 import hr.firestore.FirestoreClass
 import hr.model.User
+import hr.util.Constants
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
@@ -49,6 +50,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         if (user.profileCompleted == 0){
             startActivity(Intent(this, UserProfileActivity::class.java))
+            intent.putExtra(Constants.EXTRA_USER_DETAILS,user)
         }else{
             startActivity(Intent(this, MainActivity::class.java))
         }
