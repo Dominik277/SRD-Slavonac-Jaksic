@@ -11,6 +11,7 @@
         android:id="@+id/toolbar_user_profile_activity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/app_gradient_color_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -164,6 +165,9 @@
                     android:textSize="@dimen/et_textSize"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
