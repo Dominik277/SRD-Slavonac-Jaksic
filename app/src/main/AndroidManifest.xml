@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
-        <activity android:name="hr.activities.ForgotPasswordActivity"
+        <activity android:name="hr.activities.UserProfileActivity"
             android:screenOrientation="fullSensor"/>
+        <activity
+            android:name="hr.activities.ForgotPasswordActivity"
+            android:screenOrientation="fullSensor" />
         <activity android:name="hr.activities.BaseActivity" />
         <activity
             android:name="hr.activities.RegisterActivity"
