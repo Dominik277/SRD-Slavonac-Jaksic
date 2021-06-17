@@ -166,7 +166,65 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+          <RadioGroup
+              android:id="@+id/rd_gender"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/profile_radio_button_height"
+              android:layout_marginStart="16dp"
+              android:layout_marginTop="25dp"
+              android:layout_marginEnd="16dp"
+              android:orientation="horizontal"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/til_mobile_number"
+              app:layout_constraintBottom_toTopOf="@+id/btn_submit">
 
+              <RadioButton
+                  android:id="@+id/rb_male"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:layout_marginEnd="@dimen/profile_radio_button_marginStartEnd"
+                  android:background="@drawable/drawable_gender_tab_selector"
+                  android:button="@null"
+                  android:checked="true"
+                  android:gravity="center"
+                  android:text="@string/rb_lbl_male"
+                  android:textStyle="bold"/>
+              <RadioButton
+                  android:id="@+id/rb_female"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:layout_marginStart="@dimen/profile_radio_button_marginStartEnd"
+                  android:background="@drawable/drawable_gender_tab_selector"
+                  android:button="@null"
+                  android:checked="false"
+                  android:gravity="center"
+                  android:text="@string/rb_lbl_female"
+                  android:textStyle="bold"/>
+
+          </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingTop="@dimen/btn_padding"
+                android:paddingBottom="@dimen/btn_padding"
+                android:text="@string/btn_lbl_save"
+                android:textSize="@dimen/btn_textSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rd_gender"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
