@@ -1,11 +1,16 @@
 package hr.firestore
 
+import android.app.Activity
+import android.util.Log
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import hr.activities.LoginActivity
 import hr.activities.RegisterActivity
 import hr.model.User
+import hr.util.Constants
 
 class FirestoreClass {
 
@@ -14,7 +19,7 @@ class FirestoreClass {
     fun registerUser(activity: RegisterActivity, userInfo: User){
 
         //The "users" is collection name. If the collection is already created then it will not create the same one
-        mFirestore.collection("users")
+        mFirestore.collection(Constants.USERS)
             //Document ID for users fields. Here the document it is the User ID
             .document(userInfo.id)
             //Here the userInfo are Field and the SetOption is set to merge.
@@ -27,4 +32,40 @@ class FirestoreClass {
             }
     }
 
+    fun getCurrentUserID(): String{
+
+        //Instance of currentUser using FirebaseAuth
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        //A variable to assing the currentUserID if it is not null or else it will be blank
+        var currentUserID = ""
+        if (currentUser != null){
+            currentUserID = currentUser.uid
+        }
+        return currentUserID
+    }
+
+    fun getUserDetails(activity: Activity){
+
+        //Here we pass the collection name from where we want the data
+        mFirestore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.i(activity.javaClass.simpleName, document.toString())
+
+                //Here we have revived the document snapshot which is converted into the User data model.
+                val user = document.toObject(User::class.java)
+
+                when(activity){
+                    is LoginActivity -> {
+                        //Call a function of base activity for transferring the result to it
+                        activity.userLoggedInSuccess(user)
+                    }
+                }
+            }
+            .addOnFailureListener {
+
+            }
+    }
 }
