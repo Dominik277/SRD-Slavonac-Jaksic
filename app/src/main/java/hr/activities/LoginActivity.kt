@@ -11,6 +11,7 @@ import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityLoginBinding
+import hr.firestore.FirestoreClass
 import hr.model.User
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -97,11 +98,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             //LogIn using FirebaseAuth
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
-                    hideProgressDialog()
 
                     if (task.isSuccessful){
-                        showErrorSnackBar("You are logged in successfully",false)
+                        FirestoreClass().getUserDetails(this)
                     }else{
+                        hideProgressDialog()
                         showErrorSnackBar(task.exception!!.message.toString(),true)
                     }
                 }

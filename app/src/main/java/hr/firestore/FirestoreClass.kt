@@ -1,6 +1,8 @@
 package hr.firestore
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -55,17 +57,32 @@ class FirestoreClass {
                 Log.i(activity.javaClass.simpleName, document.toString())
 
                 //Here we have revived the document snapshot which is converted into the User data model.
-                val user = document.toObject(User::class.java)
+                val user = document.toObject(User::class.java)!!
+
+                val sharedPreferences = activity.getSharedPreferences(
+                    Constants.MYSHOPPAL_PREFERENCES,
+                    Context.MODE_PRIVATE
+                )
+
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString(
+                    Constants.LOGGED_IN_USERNAME,
+                    "${user.firstName} ${user.lastName}"
+                )
 
                 when(activity){
                     is LoginActivity -> {
                         //Call a function of base activity for transferring the result to it
-                        activity.userLoggedInSuccess(user)
+                            activity.userLoggedInSuccess(user)
                     }
                 }
             }
-            .addOnFailureListener {
-
+            .addOnFailureListener { e ->
+                when(activity){
+                    is LoginActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
             }
     }
 }
