@@ -3,12 +3,15 @@ package hr.firestore
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import hr.activities.LoginActivity
 import hr.activities.RegisterActivity
 import hr.activities.UserProfileActivity
@@ -115,5 +118,12 @@ class FirestoreClass {
                     "Error while updatin the user details",
                     e)
             }
+    }
+
+    fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?){
+        val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+            Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() +  "."
+            + Constants.getFileExtension(
+                activity,imageFileURI))
     }
 }

@@ -26,6 +26,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityUserProfileBinding
     private lateinit var mUserDetails: User
+    private var mSelectedImageFileUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,8 +128,8 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE){
                 if (data != null){
                     try {
-                        val selectedImageFileUri = data.data!!
-                        GlideLoader(this).loadUserPicture(selectedImageFileUri,binding.ivUserPhoto)
+                        mSelectedImageFileUri = data.data!!
+                        GlideLoader(this).loadUserPicture(mSelectedImageFileUri!!,binding.ivUserPhoto)
                     }catch (e: IOException){
                         e.printStackTrace()
                         Toast.makeText(
