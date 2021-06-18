@@ -125,5 +125,28 @@ class FirestoreClass {
             Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() +  "."
             + Constants.getFileExtension(
                 activity,imageFileURI))
+
+        sRef.putFile(imageFileURI!!).addOnSuccessListener { taskSnapshot ->
+            //The image upload success
+            Log.e("Firebase Image URL",
+            taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
+
+            //Get the downloadable url from the task snapshot
+            taskSnapshot.metadata!!.reference!!.downloadUrl
+                .addOnSuccessListener { uri ->
+                    Log.e("Downloadable Image URL", uri.toString())
+                }
+        }
+            .addOnFailureListener{ exception ->
+                //Hide the progress dialog if there is any error. And print the error in log.
+                when(activity){
+                    is UserProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e(activity.javaClass.simpleName,
+                exception.message,
+                exception)
+            }
     }
 }

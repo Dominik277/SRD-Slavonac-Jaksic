@@ -157,4 +157,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    fun imageUploadSuccess(imageURL: String){
+        hideProgressDialog()
+        Toast.makeText(
+            this,
+            "Your image is uploaded successfully. Image URL is $imageURL",
+            Toast.LENGTH_LONG).show()
+    }
+
 }
