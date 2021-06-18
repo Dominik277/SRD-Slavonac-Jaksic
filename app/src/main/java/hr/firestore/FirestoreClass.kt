@@ -80,7 +80,7 @@ class FirestoreClass {
                     }
                 }
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener {
                 when(activity){
                     is LoginActivity -> {
                         activity.hideProgressDialog()
