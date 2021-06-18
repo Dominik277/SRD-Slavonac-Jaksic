@@ -13,7 +13,7 @@ class GlideLoader(val context: Context) {
         try {
             Glide
                 .with(context)
-                .load(Uri.parse(imageURI.toString()))
+                .load(imageURI)
                 .centerCrop()
                 .placeholder(R.drawable.ic_user_placeholder)
                 .into(imageView)

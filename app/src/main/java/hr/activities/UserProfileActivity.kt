@@ -7,15 +7,18 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityUserProfileBinding
 import hr.model.User
 import hr.util.Constants
+import hr.util.GlideLoader
 import java.io.IOException
 
 class UserProfileActivity : BaseActivity(), View.OnClickListener {
@@ -44,6 +47,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         binding.etEmail.setText(userDetails.email)
 
         binding.ivUserPhoto.setOnClickListener(this)
+        binding.btnSubmit.setOnClickListener(this)
 
     }
 
@@ -61,6 +65,12 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                             Constants.READ_STORAGE_PERMISSION_CODE
                         )
+                    }
+                }
+                R.id.btn_submit -> {
+                    if (validateProfileDetails()){
+                        showErrorSnackBar("Your detail are valid. You can update them", false)
+
                     }
                 }
             }
@@ -92,7 +102,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 if (data != null){
                     try {
                         val selectedImageFileUri = data.data!!
-                        binding.ivUserPhoto.setImageURI(Uri.parse(selectedImageFileUri.toString()))
+                        GlideLoader(this).loadUserPicture(selectedImageFileUri,binding.ivUserPhoto)
                     }catch (e: IOException){
                         e.printStackTrace()
                         Toast.makeText(
@@ -107,4 +117,17 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             Log.e("Request Cancelled","Image selection cancelled")
         }
     }
+
+    private fun validateProfileDetails(): Boolean{
+        return when{
+            TextUtils.isEmpty(binding.etMobileNumber.text.toString().trim { it <= ' '}) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number),true)
+                false
+            }
+            else -> {
+                true
+            }
+        }
+    }
+
 }
