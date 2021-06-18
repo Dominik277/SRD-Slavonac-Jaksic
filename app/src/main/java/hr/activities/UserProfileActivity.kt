@@ -94,6 +94,15 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    fun userProfileUpdateSuccess(){
+        hideProgressDialog()
+        Toast.makeText(this,resources.getString(R.string.msg_profile_update_success),
+        Toast.LENGTH_LONG).show()
+
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

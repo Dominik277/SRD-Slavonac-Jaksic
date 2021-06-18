@@ -98,8 +98,8 @@ class FirestoreClass {
             .addOnSuccessListener {
                 when(activity){
                     is UserProfileActivity -> {
-                        //Hide the progress dialog if there is any error. And print the error in log
-                        activity.hideProgressDialog()
+                        activity.userProfileUpdateSuccess()
+
                     }
                 }
             }

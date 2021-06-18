@@ -47,4 +47,5 @@
     <string name="image_selection_failed">Image selection failed.</string>
     
     <string name="err_msg_enter_mobile_number">Please enter mobile number.</string>
+    <string name="msg_profile_update_success">Your profilte is updated successfully.</string>
 </resources>
