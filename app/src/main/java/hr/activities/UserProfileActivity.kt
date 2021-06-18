@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityUserProfileBinding
+import hr.firestore.FirestoreClass
 import hr.model.User
 import hr.util.Constants
 import hr.util.GlideLoader
@@ -24,6 +25,7 @@ import java.io.IOException
 class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityUserProfileBinding
+    private lateinit var mUserDetails: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +33,19 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         val view = binding.root
         setContentView(view)
 
-        var userDetails: User = User()
         if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)){
             //Get the user details from intent as a ParcelableExtra
-            userDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
+            mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
 
         binding.etFirstName.isEnabled = false
-        binding.etFirstName.setText(userDetails.firstName)
+        binding.etFirstName.setText(mUserDetails.firstName)
 
         binding.etLastName.isEnabled = false
-        binding.etLastName.setText(userDetails.lastName)
+        binding.etLastName.setText(mUserDetails.lastName)
 
         binding.etEmail.isEnabled = false
-        binding.etEmail.setText(userDetails.email)
+        binding.etEmail.setText(mUserDetails.email)
 
         binding.ivUserPhoto.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this)
@@ -69,8 +70,24 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 }
                 R.id.btn_submit -> {
                     if (validateProfileDetails()){
-                        showErrorSnackBar("Your detail are valid. You can update them", false)
+                        val userHashMap = HashMap<String, Any>()
+                        val mobileNumber = binding.etMobileNumber.text.toString().trim { it <= ' '}
 
+                        val gender = if (binding.rbMale.isChecked){
+                            Constants.MALE
+                        }else{
+                            Constants.FEMALE
+                        }
+                        if (mobileNumber.isNotEmpty()){
+                            userHashMap[Constants.MOBILE] = mobileNumber.toLong()
+                        }
+                        //key: gender, value: male
+                        //npr. gender:male
+                        userHashMap[Constants.GENDER] = gender
+
+                        showProgressDialog()
+
+                        FirestoreClass().updateUserProfileData(this,userHashMap)
                     }
                 }
             }

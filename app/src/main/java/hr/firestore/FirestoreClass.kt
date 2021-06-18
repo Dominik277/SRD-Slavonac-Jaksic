@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import hr.activities.LoginActivity
 import hr.activities.RegisterActivity
+import hr.activities.UserProfileActivity
 import hr.model.User
 import hr.util.Constants
 
@@ -86,6 +87,33 @@ class FirestoreClass {
                         activity.hideProgressDialog()
                     }
                 }
+            }
+    }
+
+    fun updateUserProfileData(activity: Activity, userHashMap: HashMap<String, Any>){
+        mFirestore
+            .collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .update(userHashMap)
+            .addOnSuccessListener {
+                when(activity){
+                    is UserProfileActivity -> {
+                        //Hide the progress dialog if there is any error. And print the error in log
+                        activity.hideProgressDialog()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                when(activity){
+                    is UserProfileActivity -> {
+                        //Hide the progress dialog if there is any error. And print the error in log
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updatin the user details",
+                    e)
             }
     }
 }

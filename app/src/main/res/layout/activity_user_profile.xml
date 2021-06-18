@@ -159,7 +159,7 @@
                     android:id="@+id/et_mobile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="phone"
                     android:padding="@dimen/et_padding"
                     android:textColor="@color/black"
                     android:textSize="@dimen/et_textSize"/>
