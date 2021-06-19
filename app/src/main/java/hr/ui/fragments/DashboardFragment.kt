@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentDashboardBinding
+import hr.ui.activities.SettingsActivity
 
 class DashboardFragment : Fragment() {
 
