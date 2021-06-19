@@ -1,4 +1,4 @@
-package hr.activities
+package hr.ui.activities
 
 import android.content.Intent
 import android.os.Build

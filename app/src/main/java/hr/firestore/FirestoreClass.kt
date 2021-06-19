@@ -5,16 +5,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import hr.activities.LoginActivity
-import hr.activities.RegisterActivity
-import hr.activities.UserProfileActivity
+import hr.ui.activities.LoginActivity
+import hr.ui.activities.RegisterActivity
+import hr.ui.activities.UserProfileActivity
 import hr.model.User
 import hr.util.Constants
 

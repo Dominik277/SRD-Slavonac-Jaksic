@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hr.activities.UserProfileActivity">
+    tools:context="hr.ui.activities.UserProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_user_profile_activity"

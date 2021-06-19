@@ -1,8 +1,10 @@
-package hr.activities
+package hr.ui.activities
 
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import hr.dominik.ribolovnodrustvojaksic.R
@@ -60,4 +62,19 @@ open class BaseActivity : AppCompatActivity() {
         mProgressDialog.dismiss()
     }
 
+    fun doubleBackToExit(){
+        if (doubleBackToExitPressedOnce){
+            super.onBackPressed()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+
+        Toast.makeText(
+            this,resources.getString(R.string.please_click_back_again_to_exit),
+            Toast.LENGTH_LONG)
+            .show()
+
+        @Suppress("DEPRECATION")
+        Handler().postDelayed({doubleBackToExitPressedOnce = false},2000)
+    }
 }

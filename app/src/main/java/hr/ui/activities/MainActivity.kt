@@ -1,4 +1,4 @@
-package hr.activities
+package hr.ui.activities
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

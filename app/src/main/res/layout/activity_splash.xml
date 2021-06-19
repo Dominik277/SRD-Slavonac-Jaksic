@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_200"
-    tools:context="hr.activities.SplashActivity">
+    tools:context="hr.ui.activities.SplashActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

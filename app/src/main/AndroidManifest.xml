@@ -10,25 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
         <activity
-            android:name="hr.activities.DashboardActivity" />
+            android:name="hr.ui.activities.DashboardActivity" />
         <activity
-            android:name="hr.activities.UserProfileActivity"
+            android:name="hr.ui.activities.UserProfileActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="hr.activities.ForgotPasswordActivity"
+            android:name="hr.ui.activities.ForgotPasswordActivity"
             android:screenOrientation="fullSensor" />
-        <activity android:name="hr.activities.BaseActivity" />
+        <activity android:name="hr.ui.activities.BaseActivity" />
         <activity
-            android:name="hr.activities.RegisterActivity"
-            android:screenOrientation="fullSensor" />
-        <activity
-            android:name="hr.activities.LoginActivity"
+            android:name="hr.ui.activities.RegisterActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="hr.activities.MainActivity"
+            android:name="hr.ui.activities.LoginActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name="hr.activities.SplashActivity"
+            android:name="hr.ui.activities.MainActivity"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name="hr.ui.activities.SplashActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
