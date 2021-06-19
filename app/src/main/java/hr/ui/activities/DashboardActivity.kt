@@ -1,6 +1,7 @@
 package hr.ui.activities
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
