@@ -40,7 +40,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
         binding.etFirstName.setText(mUserDetails.firstName)
         binding.etLastName.setText(mUserDetails.lastName)
-        binding.etEmail.isEnabled = false
+        binding.etEmail.isEnabled = true
         binding.etEmail.setText(mUserDetails.email)
 
         if (mUserDetails.profileCompleted == 0){
@@ -155,7 +155,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         Toast.makeText(this,resources.getString(R.string.msg_profile_update_success),
         Toast.LENGTH_LONG).show()
 
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 
