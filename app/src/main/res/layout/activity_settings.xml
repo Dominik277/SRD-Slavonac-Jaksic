@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context="hr.ui.activities.SettingsActivity">
 
+    <FrameLayout
+        android:id="@+id/fl_header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_image_height">
+
+        <ImageView
+            android:id="@+id/iv_header_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/content_description"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_user_placeholder"/>
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settingsToolbar"
+        android:id="@+id/toolbar_settings_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
@@ -18,12 +40,58 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="25dp"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="@dimen/toolbar_title_paddingStart"
+            android:paddingEnd="0dp"
+            android:text="@string/settings_toolbar_text"
+            android:textSize="25sp"
             android:textColor="@color/white"/>
 
     </androidx.appcompat.widget.Toolbar>
+    </FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/fl_user_image"
+        android:layout_width="@dimen/settings_user_image_size"
+        android:layout_height="@dimen/settings_user_image_size"
+        android:layout_below="@id/fl_header_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/settings_user_image_marginTop">
+
+        <ImageView
+            android:id="@+id/iv_user_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/settings_user_picture_margin"
+            android:contentDescription="@string/content_description"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_user_placeholder"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/user_image_background"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fl_header_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/settings_edit_label_marginStartEnd"
+        android:paddingEnd="@dimen/settings_edit_label_marginStartEnd"
+        android:paddingTop="@dimen/settings_edit_label_marginTopBottom"
+        android:paddingBottom="@dimen/settings_edit_label_marginTopBottom"
+        android:text="@string/lbl_edit"
+        android:textSize="@dimen/settings_edit_label_textSize"/>
+
+
+</RelativeLayout>
+</ScrollView>
