@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hr.dominik.ribolovnodrustvojaksic">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
-        <activity android:name="hr.activities.UserProfileActivity"
-            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name="hr.activities.DashboardActivity"
+            android:label="@string/title_activity_dashboard"></activity>
+        <activity
+            android:name="hr.activities.UserProfileActivity"
+            android:screenOrientation="fullSensor" />
         <activity
             android:name="hr.activities.ForgotPasswordActivity"
             android:screenOrientation="fullSensor" />
@@ -37,5 +39,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
