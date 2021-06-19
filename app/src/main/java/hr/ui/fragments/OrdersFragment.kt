@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentHomeBinding
+import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentOrdersBinding
 
-class HomeFragment : Fragment() {
+class OrdersFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentOrdersBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,11 +22,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentOrdersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-            textView.text = "This is Home Fragment"
+        val textView: TextView = binding.textNotifications
+            textView.text = "This is Notifications Fragmen"
+
         return root
     }
 
