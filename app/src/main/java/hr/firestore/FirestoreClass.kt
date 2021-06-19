@@ -14,6 +14,7 @@ import hr.ui.activities.LoginActivity
 import hr.ui.activities.RegisterActivity
 import hr.ui.activities.UserProfileActivity
 import hr.model.User
+import hr.ui.activities.SettingsActivity
 import hr.util.Constants
 
 class FirestoreClass {
@@ -80,11 +81,17 @@ class FirestoreClass {
                         //Call a function of base activity for transferring the result to it
                             activity.userLoggedInSuccess(user)
                     }
+                    is SettingsActivity -> {
+                        activity.userDetailSuccess(user)
+                    }
                 }
             }
             .addOnFailureListener {
                 when(activity){
                     is LoginActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is SettingsActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
