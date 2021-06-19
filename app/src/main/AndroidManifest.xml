@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
         <activity
-            android:name="hr.activities.DashboardActivity"
-            android:label="@string/title_activity_dashboard"></activity>
+            android:name="hr.activities.DashboardActivity" />
         <activity
             android:name="hr.activities.UserProfileActivity"
             android:screenOrientation="fullSensor" />

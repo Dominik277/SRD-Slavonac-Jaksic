@@ -8,8 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import hr.activities.R
-import hr.activities.databinding.FragmentDashboardBinding
+import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
 

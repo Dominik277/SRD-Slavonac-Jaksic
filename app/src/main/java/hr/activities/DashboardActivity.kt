@@ -7,7 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import hr.activities.databinding.ActivityDashboardBinding
+import hr.dominik.ribolovnodrustvojaksic.R
+import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityDashboardBinding
 
 class DashboardActivity : AppCompatActivity() {
 
