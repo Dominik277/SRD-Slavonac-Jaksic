@@ -139,10 +139,37 @@
             android:padding="@dimen/settings_address_padding">
             
             <TextView
-                android:layout_width=""
-                android:layout_height=""
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/settings_lbl_address_margin"
+                android:layout_weight="1"
+                android:text="@string/lbl_addresses"
+                android:textSize="@dimen/settings_lbl_address_textSize"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_vector_chevron_right"/>
             
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_address"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/settings_button_marginStartEnd"
+            android:layout_marginTop="@dimen/settings_button_marginTopBottom"
+            android:layout_marginEnd="@dimen/settings_button_marginStartEnd"
+            android:layout_marginBottom="@dimen/settings_button_marginTopBottom"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingTop="@dimen/btn_padding"
+            android:paddingBottom="@dimen/btn_padding"
+            android:text="@string/btn_lbl_logout"
+            android:textColor="@color/white"
+            android:textSize="@dimen/btn_textSize"/>
 
     </RelativeLayout>
 </ScrollView>
