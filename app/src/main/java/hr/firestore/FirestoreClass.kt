@@ -135,6 +135,11 @@ class FirestoreClass {
             taskSnapshot.metadata!!.reference!!.downloadUrl
                 .addOnSuccessListener { uri ->
                     Log.e("Downloadable Image URL", uri.toString())
+                    when(activity){
+                        is UserProfileActivity -> {
+                            activity.imageUploadSuccess(uri.toString())
+                        }
+                    }
                 }
         }
             .addOnFailureListener{ exception ->
