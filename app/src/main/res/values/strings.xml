@@ -56,4 +56,9 @@
     <string name="title_products">Products</string>
     <string name="action_settings">Settings</string>
     <string name="settings_toolbar_text">Settings</string>
+
+    <string name="title_settings">Setting</string>
+    <string name="lbl_edit">Edit</string>
+    <string name="lbl_addresses">Addresses</string>
+    <string name="btn_lbl_logout">Logout</string>
 </resources>
