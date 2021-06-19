@@ -38,18 +38,38 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
 
-        binding.etFirstName.isEnabled = false
-        binding.etFirstName.setText(mUserDetails.firstName)
+        if (mUserDetails.profileCompleted == 0){
+            binding.tvTitle.text = resources.getString(R.string.title_complete_profile)
+            binding.etFirstName.isEnabled = false
+            binding.etFirstName.setText(mUserDetails.firstName)
 
-        binding.etLastName.isEnabled = false
-        binding.etLastName.setText(mUserDetails.lastName)
+            binding.etLastName.isEnabled = false
+            binding.etLastName.setText(mUserDetails.lastName)
 
-        binding.etEmail.isEnabled = false
-        binding.etEmail.setText(mUserDetails.email)
+            binding.etEmail.isEnabled = false
+            binding.etEmail.setText(mUserDetails.email)
+        }else{
+            setupActionBar()
+            binding.tvTitle.text = resources.getString(R.string.title_edit_profile)
+            GlideLoader(this).loadUserPicture(mUserDetails.image, binding.ivUserPhoto)
+            binding.etFirstName.setText(mUserDetails.firstName)
+            binding.etLastName.setText(mUserDetails.lastName)
+        }
 
         binding.ivUserPhoto.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this)
 
+    }
+
+    private fun setupActionBar(){
+        setSupportActionBar(binding.toolbarUserProfileActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
+        }
+        binding.toolbarUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(v: View?) {
