@@ -4,7 +4,9 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -19,6 +21,7 @@ import java.io.IOException
 class AddProductActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityAddProductBinding
+    private var mSelectedImageFileUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         setupActionBar()
 
         binding.ivAddUpdateProduct.setOnClickListener(this)
+        binding.btnSubmit.setOnClickListener(this)
     }
 
     private fun setupActionBar(){
@@ -56,6 +60,11 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                             Constants.READ_STORAGE_PERMISSION_CODE
                         )
+                    }
+                }
+                R.id.btn_submit -> {
+                    if (validateProductDetails()){
+                        showErrorSnackBar("Your product details are valid",false)
                     }
                 }
             }
@@ -88,9 +97,9 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                     binding.ivAddUpdateProduct.setImageDrawable(ContextCompat
                         .getDrawable(this,R.drawable.ic_vector_edit))
 
-                    val selectedImageFileUri = data.data!!
+                    mSelectedImageFileUri = data.data!!
                     try {
-                        GlideLoader(this).loadUserPicture(selectedImageFileUri,binding.ivProductImage)
+                        GlideLoader(this).loadUserPicture(mSelectedImageFileUri!!,binding.ivProductImage)
                     }catch (e: IOException){
                         e.printStackTrace()
                     }
@@ -99,6 +108,34 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         }else if (resultCode == Activity.RESULT_CANCELED){
             //A log is printed when user closes or canceles the image selection
             Log.e("Request Cancelled","Image selection cancelled")
+        }
+    }
+
+    private fun validateProductDetails(): Boolean{
+        return when{
+            mSelectedImageFileUri == null -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_select_product_image),true)
+                false
+            }
+            TextUtils.isEmpty(binding.etProductTitle.text.toString().trim { it <= ' '}) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_product_title),true)
+                false
+            }
+            TextUtils.isEmpty(binding.etProductPrice.text.toString().trim { it <= ' '}) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_product_price),true)
+                false
+            }
+            TextUtils.isEmpty(binding.etProductDescription.text.toString().trim { it <= ' '}) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_description),true)
+                false
+            }
+            TextUtils.isEmpty(binding.etProductQuantity.text.toString().trim { it <= ' '}) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_quantity),true)
+                false
+            }
+            else -> {
+                true
+            }
         }
     }
 
