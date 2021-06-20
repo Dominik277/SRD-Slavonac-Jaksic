@@ -100,7 +100,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                     if (validateProfileDetails()){
                         showProgressDialog()
                         if (mSelectedImageFileUri != null) {
-                            FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri)
+                            FirestoreClass().uploadImageToCloudStorage(this, mSelectedImageFileUri,Constants.USER_PROFILE_IMAGE)
                         }else{
                             updateUserProfileDetails()
                         }
@@ -120,7 +120,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
         val lastName = binding.etLastName.text.toString().trim { it <= ' '}
         if (lastName != mUserDetails.lastName){
-            userHashMap[Constants.FIRST_NAME] = lastName
+            userHashMap[Constants.LAST_NAME] = lastName
         }
 
         val mobileNumber = binding.etMobileNumber.text.toString().trim { it <= ' '}

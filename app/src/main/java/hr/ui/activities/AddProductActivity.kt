@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddProductBinding
+import hr.firestore.FirestoreClass
 import hr.util.Constants
 import hr.util.GlideLoader
 import java.io.IOException
@@ -64,11 +65,24 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                 }
                 R.id.btn_submit -> {
                     if (validateProductDetails()){
-                        showErrorSnackBar("Your product details are valid",false)
+                        uploadProductImage()
                     }
                 }
             }
         }
+    }
+
+    private fun uploadProductImage(){
+        showProgressDialog()
+        FirestoreClass().uploadImageToCloudStorage(this,mSelectedImageFileUri,Constants.PRODUCT_IMAGE)
+
+    }
+
+    fun imageUploadSuccess(imageURL: String){
+        hideProgressDialog()
+
+        showErrorSnackBar("Product image is uploaded successfully. Image URL: $imageURL",false)
+
     }
 
     override fun onRequestPermissionsResult(
