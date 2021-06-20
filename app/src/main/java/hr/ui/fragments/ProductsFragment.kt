@@ -2,13 +2,13 @@ package hr.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentProductsBinding
+import hr.firestore.FirestoreClass
+import hr.model.Product
 import hr.ui.activities.AddProductActivity
-import hr.ui.activities.SettingsActivity
 
 class ProductsFragment : BaseFragment() {
 
@@ -25,11 +25,27 @@ class ProductsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        return root
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductsFromFirestore()
+    }
+
+    fun successProductsListFromFireStore(productsList: ArrayList<Product>){
+        hideProgressDialog()
+
+        for (i in productsList){
+            Log.i("Product name",i.title)
+        }
+    }
+
+    private fun getProductsFromFirestore(){
+        showProgressDialog()
+        FirestoreClass().getProductsList(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

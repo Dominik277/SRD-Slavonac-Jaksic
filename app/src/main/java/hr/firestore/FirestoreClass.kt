@@ -14,6 +14,7 @@ import com.google.firebase.storage.StorageReference
 import hr.model.Product
 import hr.model.User
 import hr.ui.activities.*
+import hr.ui.fragments.ProductsFragment
 import hr.util.Constants
 
 class FirestoreClass {
@@ -193,6 +194,11 @@ class FirestoreClass {
                     product!!.product_id = i.id
 
                     productsList.add(product)
+                }
+                when(fragment){
+                    is ProductsFragment -> {
+                        fragment.successProductsListFromFireStore(productsList)
+                    }
                 }
             }
     }
