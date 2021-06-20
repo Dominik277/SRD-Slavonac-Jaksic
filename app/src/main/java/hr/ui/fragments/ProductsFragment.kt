@@ -10,7 +10,7 @@ import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentProductsBinding
 import hr.ui.activities.AddProductActivity
 import hr.ui.activities.SettingsActivity
 
-class ProductsFragment : Fragment() {
+class ProductsFragment : BaseFragment() {
 
     private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
