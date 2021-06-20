@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
-        <activity android:name="hr.ui.activities.AddProductActivity"></activity>
+        <activity android:name="hr.ui.activities.AddProductActivity"
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="hr.ui.activities.SettingsActivity"
             android:screenOrientation="fullSensor" />

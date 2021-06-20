@@ -2,6 +2,7 @@ package hr.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import hr.dominik.ribolovnodrustvojaksic.R
 
 class AddProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
