@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import hr.model.Product
 import hr.model.User
 import hr.ui.activities.*
 import hr.util.Constants
@@ -162,4 +163,21 @@ class FirestoreClass {
                 exception)
             }
     }
+
+    fun uploadProductDetails(activity: AddProductActivity,productInfo: Product){
+        mFirestore.collection(Constants.PRODUCTS)
+            .document()
+            .set(productInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.productUploadSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the product details.",
+                    e)
+            }
+    }
+
 }

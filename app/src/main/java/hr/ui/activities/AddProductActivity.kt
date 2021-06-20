@@ -83,7 +83,16 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
 
     fun imageUploadSuccess(imageURL: String){
        mProductImageURL = imageURL
+        uploadProductDetails()
+    }
 
+    fun productUploadSuccess(){
+        hideProgressDialog()
+        Toast.makeText(
+            this,
+            resources.getString(R.string.product_uploaded_success_message),
+            Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun uploadProductDetails(){
@@ -98,6 +107,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
             binding.etProductQuantity.text.toString().trim { it <= ' ' },
             mProductImageURL
         )
+        FirestoreClass().uploadProductDetails(this,product)
     }
 
     override fun onRequestPermissionsResult(
