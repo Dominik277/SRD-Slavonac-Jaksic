@@ -2,9 +2,11 @@ package hr.ui.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityProductDetailsBinding
 import hr.firestore.FirestoreClass
+import hr.model.CartItem
 import hr.model.Product
 import hr.util.Constants
 import hr.util.GlideLoader
@@ -13,6 +15,7 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
 
     private lateinit var binding: ActivityProductDetailsBinding
     private var mProductId: String = ""
+    private lateinit var mProductDetails: Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,7 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
     }
 
     fun productDetailsSuccess(product: Product){
+        mProductDetails = product
         hideProgressDialog()
         GlideLoader(this).loadUserPicture(
             product.image,
@@ -70,8 +74,34 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
         binding.toolbarProductDetailsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    override fun onClick(view: View?) {
-
+    private fun addToCart(){
+        val cartItem = CartItem(
+            FirestoreClass().getCurrentUserID(),
+            mProductId,
+            mProductDetails.title,
+            mProductDetails.price,
+            mProductDetails.image,
+            Constants.DEFAULT_CART_QUANTITY
+        )
+        showProgressDialog()
+        FirestoreClass().addCartItems(this,cartItem)
     }
 
+    fun addToCartSuccess(){
+        hideProgressDialog()
+        Toast.makeText(
+            this,
+            resources.getString(R.string.success_message_item_added_to_cart),
+            Toast.LENGTH_LONG).show()
+    }
+
+    override fun onClick(view: View?) {
+        if (view != null){
+            when(view.id){
+                R.id.btn_add_to_cart -> {
+                    addToCart()
+                }
+            }
+        }
+    }
 }

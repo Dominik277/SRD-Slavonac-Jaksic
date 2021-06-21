@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import hr.model.CartItem
 import hr.model.Product
 import hr.model.User
 import hr.ui.activities.*
@@ -215,6 +216,18 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+            }
+    }
+
+    fun addCartItems(activity: ProductDetailsActivity, addToCart: CartItem){
+        mFirestore.collection(Constants.CART_ITEMS)
+            .document()
+            .set(addToCart, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addToCartSuccess()
+            }
+            .addOnFailureListener {
                 activity.hideProgressDialog()
             }
     }
