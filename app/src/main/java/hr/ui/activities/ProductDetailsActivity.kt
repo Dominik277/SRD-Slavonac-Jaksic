@@ -38,11 +38,15 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
 
         if (FirestoreClass().getCurrentUserID() == productOwnerId){
             binding.btnAddToCart.visibility = View.GONE
+            binding.btnGoToCart.visibility = View.GONE
         }else{
             binding.btnAddToCart.visibility = View.VISIBLE
+            binding.btnGoToCart.visibility = View.GONE
         }
 
         getProductDetails()
+        binding.btnAddToCart.setOnClickListener(this)
+        binding.btnGoToCart.setOnClickListener(this)
     }
 
     private fun getProductDetails(){
@@ -50,9 +54,14 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
         FirestoreClass().getProductDetails(this,mProductId)
     }
 
+    fun productExistsInCart(){
+        hideProgressDialog()
+        binding.btnAddToCart.visibility = View.GONE
+        binding.btnGoToCart.visibility = View.VISIBLE
+    }
+
     fun productDetailsSuccess(product: Product){
         mProductDetails = product
-        hideProgressDialog()
         GlideLoader(this).loadUserPicture(
             product.image,
             binding.ivProductDetailImage
@@ -61,6 +70,12 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
         binding.tvProductDetailsPrice.text = "$${product.price}"
         binding.tvProductDetailsDescription.text = product.description
         binding.tvProductDetailsAvailableQuantity.text = product.stock_quantity
+
+        if (FirestoreClass().getCurrentUserID() == product.user_id){
+            hideProgressDialog()
+        }else{
+            FirestoreClass().checkIfItemExistInCart(this,mProductId)
+        }
     }
 
     private fun setupActionBar(){
@@ -93,6 +108,9 @@ class ProductDetailsActivity : BaseActivity(),View.OnClickListener {
             this,
             resources.getString(R.string.success_message_item_added_to_cart),
             Toast.LENGTH_LONG).show()
+
+        binding.btnAddToCart.visibility = View.GONE
+        binding.btnGoToCart.visibility = View.VISIBLE
     }
 
     override fun onClick(view: View?) {
