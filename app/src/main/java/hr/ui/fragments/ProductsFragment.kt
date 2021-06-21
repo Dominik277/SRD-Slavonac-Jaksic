@@ -1,5 +1,6 @@
 package hr.ui.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -43,6 +44,31 @@ class ProductsFragment : BaseFragment() {
             requireActivity(),
             "You can now delete the product. $productID",
             Toast.LENGTH_LONG).show()
+    }
+
+    private fun showAlertDialogToDeleteProduct(productID: String){
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle(resources.getString(R.string.delete_dialog_title))
+        builder.setMessage(resources.getString(R.string.delete_dialog_message))
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        builder.setPositiveButton(resources.getString(R.string.yes)){ dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
+
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface ->
+
+        }
+    }
+
+    fun productDeleteSuccess(){
+        hideProgressDialog()
+
+        Toast.makeText(
+            requireActivity(),
+            resources.getString(R.string.product_delete_success_message),
+            Toast.LENGTH_LONG).show()
+        getProductsFromFirestore()
     }
 
     fun successProductsListFromFireStore(productsList: ArrayList<Product>){

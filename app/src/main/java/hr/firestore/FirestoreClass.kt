@@ -204,6 +204,23 @@ class FirestoreClass {
             }
     }
 
+    fun deleteProduct(fragment: ProductsFragment,productID: String){
+        mFirestore.collection(Constants.PRODUCTS)
+            .document(productID)
+            .delete()
+            .addOnSuccessListener {
+                fragment.productDeleteSuccess()
+            }
+            .addOnFailureListener { e ->
+                fragment.hideProgressDialog()
+                Log.e(
+                    fragment.requireActivity().javaClass.simpleName,
+                    "Error while deleting the product",
+                    e
+                )
+            }
+    }
+
     fun getDashboardItemsList(fragment: DashboardFragment){
         mFirestore.collection(Constants.PRODUCTS)
             .get()
