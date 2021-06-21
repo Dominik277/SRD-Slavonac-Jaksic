@@ -10,6 +10,7 @@ import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentDashboardBinding
 import hr.firestore.FirestoreClass
 import hr.model.Product
+import hr.ui.activities.CartListActivity
 import hr.ui.activities.ProductDetailsActivity
 import hr.ui.activities.SettingsActivity
 import hr.ui.adapters.DashboardItemsListAdapter
@@ -78,6 +79,10 @@ class DashboardFragment : BaseFragment() {
         when(item.itemId){
             R.id.action_settings -> {
                 startActivity(Intent(activity, SettingsActivity::class.java))
+                return true
+            }
+            R.id.action_cart -> {
+                startActivity(Intent(activity,CartListActivity::class.java))
                 return true
             }
         }
