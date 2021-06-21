@@ -204,6 +204,21 @@ class FirestoreClass {
             }
     }
 
+    fun getProductDetails(activity: ProductDetailsActivity,productID: String){
+        mFirestore.collection(Constants.PRODUCTS)
+            .document(productID)
+            .get()
+            .addOnSuccessListener { document ->
+                val product = document.toObject(Product::class.java)
+                if (product != null) {
+                    activity.productDetailsSuccess(product)
+                }
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+            }
+    }
+
     fun deleteProduct(fragment: ProductsFragment,productID: String){
         mFirestore.collection(Constants.PRODUCTS)
             .document(productID)
