@@ -14,6 +14,7 @@ import com.google.firebase.storage.StorageReference
 import hr.model.Product
 import hr.model.User
 import hr.ui.activities.*
+import hr.ui.fragments.DashboardFragment
 import hr.ui.fragments.ProductsFragment
 import hr.util.Constants
 
@@ -200,6 +201,27 @@ class FirestoreClass {
                         fragment.successProductsListFromFireStore(productsList)
                     }
                 }
+            }
+    }
+
+    fun getDashboardItemsList(fragment: DashboardFragment){
+        mFirestore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+                val productsList: ArrayList<Product> = ArrayList()
+
+                for (i in document.documents){
+                    val product = i.toObject(Product::class.java)!!
+                    product.product_id = i.id
+                    productsList.add(product)
+                }
+                fragment.successDashboardItemsList(productsList)
+
+            }
+            .addOnFailureListener { e ->
+                fragment.hideProgressDialog()
+                Log.e(fragment.javaClass.simpleName,"Error while getting dashboard item list",e)
             }
     }
 
