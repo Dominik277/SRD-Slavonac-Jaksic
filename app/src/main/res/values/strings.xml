@@ -76,4 +76,6 @@
     <string name="err_msg_enter_quantity">Please enter product quantity.</string>
     <string name="product_uploaded_success_message">Your product was uploaded  successfully.</string>
     <string name="no_products_added_yet">No products added yet.</string>
+
+    <string name="no_dashboard_item_found">No items found</string>
 </resources>

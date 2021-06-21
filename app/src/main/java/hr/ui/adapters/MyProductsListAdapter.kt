@@ -26,11 +26,9 @@ open class MyProductsListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
-        if (holder is ViewHolder){
             GlideLoader(context).loadProductPicture(model.image,holder.binding.ivItemImage)
             holder.binding.tvItemName.text = model.title
             holder.binding.tvItemPrice.text = "$${model.price}"
-        }
     }
 
     override fun getItemCount(): Int {
