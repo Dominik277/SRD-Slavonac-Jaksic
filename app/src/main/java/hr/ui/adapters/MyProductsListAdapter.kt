@@ -1,13 +1,16 @@
 package hr.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemListLayoutBinding
 import hr.model.Product
+import hr.ui.activities.ProductDetailsActivity
 import hr.ui.fragments.ProductsFragment
 import hr.util.GlideLoader
+import kotlinx.coroutines.channels.ProducerScope
 
 open class MyProductsListAdapter(
     private val context: Context,
@@ -34,6 +37,10 @@ open class MyProductsListAdapter(
 
         holder.binding.ibDeleteProduct.setOnClickListener {
             fragment.deleteProduct(model.product_id)
+        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            context.startActivity(intent)
         }
     }
 
