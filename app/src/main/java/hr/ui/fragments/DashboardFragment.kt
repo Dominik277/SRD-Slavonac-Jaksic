@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.recyclerview.widget.GridLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentDashboardBinding
 import hr.firestore.FirestoreClass
 import hr.model.Product
 import hr.ui.activities.SettingsActivity
+import hr.ui.adapters.DashboardItemsListAdapter
 
 class DashboardFragment : BaseFragment() {
 
@@ -32,8 +34,19 @@ class DashboardFragment : BaseFragment() {
 
     fun successDashboardItemsList(dashboardItemsList: ArrayList<Product>){
         hideProgressDialog()
-        for (i in dashboardItemsList){
-            Log.i("Item title",i.title)
+
+        if(dashboardItemsList.size > 0){
+            binding.rvDashboardItems.visibility = View.VISIBLE
+            binding.tvNoDashboardItemsFound.visibility = View.GONE
+
+            binding.rvDashboardItems.layoutManager = GridLayoutManager(activity,2)
+            binding.rvDashboardItems.setHasFixedSize(true)
+
+            val adapter = DashboardItemsListAdapter(requireActivity(),dashboardItemsList)
+            binding.rvDashboardItems.adapter = adapter
+        }else{
+            binding.rvDashboardItems.visibility = View.GONE
+            binding.tvNoDashboardItemsFound.visibility = View.VISIBLE
         }
     }
 
