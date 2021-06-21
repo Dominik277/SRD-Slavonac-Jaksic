@@ -9,6 +9,7 @@ import hr.dominik.ribolovnodrustvojaksic.databinding.ItemListLayoutBinding
 import hr.model.Product
 import hr.ui.activities.ProductDetailsActivity
 import hr.ui.fragments.ProductsFragment
+import hr.util.Constants
 import hr.util.GlideLoader
 import kotlinx.coroutines.channels.ProducerScope
 
@@ -40,6 +41,7 @@ open class MyProductsListAdapter(
         }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(Constants.EXTRA_PRODUCT_ID,model.product_id)
             context.startActivity(intent)
         }
     }
