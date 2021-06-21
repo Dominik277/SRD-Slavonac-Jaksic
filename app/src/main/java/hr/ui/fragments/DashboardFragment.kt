@@ -2,6 +2,7 @@ package hr.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,8 +10,10 @@ import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentDashboardBinding
 import hr.firestore.FirestoreClass
 import hr.model.Product
+import hr.ui.activities.ProductDetailsActivity
 import hr.ui.activities.SettingsActivity
 import hr.ui.adapters.DashboardItemsListAdapter
+import hr.util.Constants
 
 class DashboardFragment : BaseFragment() {
 
@@ -44,6 +47,14 @@ class DashboardFragment : BaseFragment() {
 
             val adapter = DashboardItemsListAdapter(requireActivity(),dashboardItemsList)
             binding.rvDashboardItems.adapter = adapter
+
+            adapter.setOnClickListener(object: DashboardItemsListAdapter.OnClickListener{
+                override fun onClick(position: Int, product: Product) {
+                    val intent = Intent(context,ProductDetailsActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_PRODUCT_ID,product.product_id)
+                    startActivity(intent)
+                }
+            })
         }else{
             binding.rvDashboardItems.visibility = View.GONE
             binding.tvNoDashboardItemsFound.visibility = View.VISIBLE
