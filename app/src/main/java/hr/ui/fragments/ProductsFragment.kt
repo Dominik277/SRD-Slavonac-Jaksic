@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentProductsBinding
@@ -37,6 +38,13 @@ class ProductsFragment : BaseFragment() {
         getProductsFromFirestore()
     }
 
+    fun deleteProduct(productID: String){
+        Toast.makeText(
+            requireActivity(),
+            "You can now delete the product. $productID",
+            Toast.LENGTH_LONG).show()
+    }
+
     fun successProductsListFromFireStore(productsList: ArrayList<Product>){
         hideProgressDialog()
 
@@ -46,7 +54,7 @@ class ProductsFragment : BaseFragment() {
 
             binding.rvMyProductItems.layoutManager = LinearLayoutManager(activity)
             binding.rvMyProductItems.setHasFixedSize(true)
-            val adapterProducts = MyProductsListAdapter(requireActivity(),productsList)
+            val adapterProducts = MyProductsListAdapter(requireActivity(),productsList, this)
             binding.rvMyProductItems.adapter = adapterProducts
         }else{
             binding.rvMyProductItems.visibility = View.GONE
