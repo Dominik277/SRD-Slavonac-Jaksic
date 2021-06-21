@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import hr.dominik.ribolovnodrustvojaksic.databinding.ItemDashboardLayoutBinding
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemListLayoutBinding
 import hr.model.Product
 import hr.util.GlideLoader
@@ -15,7 +16,7 @@ open class DashboardItemsListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemListLayoutBinding.inflate(
+            ItemDashboardLayoutBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -25,15 +26,15 @@ open class DashboardItemsListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
-        GlideLoader(context).loadProductPicture(model.image,holder.binding.ivItemImage)
-        holder.binding.tvItemName.text = model.title
-        holder.binding.tvItemPrice.text = "$${model.price}"
+        GlideLoader(context).loadProductPicture(model.image,holder.binding.ivDashboardItemImage)
+        holder.binding.tvDashboardItemTitle.text = model.title
+        holder.binding.tvDashboardItemPrice.text = "$${model.price}"
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class ViewHolder(val binding: ItemListLayoutBinding):
+    class ViewHolder(val binding: ItemDashboardLayoutBinding):
         RecyclerView.ViewHolder(binding.root)
 }

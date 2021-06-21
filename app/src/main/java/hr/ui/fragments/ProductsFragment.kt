@@ -40,10 +40,7 @@ class ProductsFragment : BaseFragment() {
     }
 
     fun deleteProduct(productID: String){
-        Toast.makeText(
-            requireActivity(),
-            "You can now delete the product. $productID",
-            Toast.LENGTH_LONG).show()
+        showAlertDialogToDeleteProduct(productID)
     }
 
     private fun showAlertDialogToDeleteProduct(productID: String){
@@ -53,12 +50,18 @@ class ProductsFragment : BaseFragment() {
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
         builder.setPositiveButton(resources.getString(R.string.yes)){ dialogInterface, _ ->
+            showProgressDialog()
+            FirestoreClass().deleteProduct(this,productID)
             dialogInterface.dismiss()
         }
 
-        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface ->
-
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
+            dialogInterface.dismiss()
         }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     fun productDeleteSuccess(){
