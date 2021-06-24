@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/cart_item_marginTop"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/cart_item_paddingStartEnd"
+    android:paddingTop="@dimen/cart_item_paddingTopBottom"
+    android:paddingEnd="@dimen/cart_item_paddingStartEnd"
+    android:paddingBottom="@dimen/cart_item_paddingTopBottom">
+
+    <LinearLayout
+        android:layout_width=""
+        android:layout_height="">
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
