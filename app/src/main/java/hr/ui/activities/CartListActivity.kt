@@ -44,6 +44,22 @@ class CartListActivity : BaseActivity() {
                 val quantity = item.cart_quantity.toInt()
                 subTotal += (price * quantity)
             }
+            binding.tvSubTotal.text = "$$subTotal"
+            binding.tvShippingCharge.text = "$10.0"
+
+            if (subTotal > 0){
+                binding.llCheckout.visibility = View.VISIBLE
+
+                val total = subTotal + 10
+                binding.tvTotalAmount.text = "$$total"
+            }else{
+                binding.llCheckout.visibility = View.GONE
+            }
+        }
+        else{
+            binding.rvCartItemsList.visibility = View.GONE
+            binding.llCheckout.visibility = View.GONE
+            binding.tvNoCartItemFound.visibility = View.VISIBLE
         }
     }
 
