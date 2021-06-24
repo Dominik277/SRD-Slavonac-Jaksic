@@ -1,12 +1,31 @@
 package hr.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.dominik.ribolovnodrustvojaksic.R
+import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityCartListBinding
 
-class CartListActivity : AppCompatActivity() {
+class CartListActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityCartListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart_list)
+        binding = ActivityCartListBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+    }
+
+    private fun setupActionBar(){
+
+        setSupportActionBar(binding.toolbarCartListActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
+        }
+
+        binding.toolbarCartListActivity.setNavigationOnClickListener { onBackPressed() }
+
     }
 }
