@@ -294,6 +294,23 @@ class FirestoreClass {
             }
     }
 
+    fun getAllProductList(activity: CartListActivity){
+        mFirestore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+                val productList: ArrayList<Product> = ArrayList()
+                for (i in document.documents){
+                    val product = i.toObject(Product::class.java)
+                    product!!.product_id = i.id
+
+                    productList.add(product)
+                }
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+            }
+    }
+
     fun getDashboardItemsList(fragment: DashboardFragment){
         mFirestore.collection(Constants.PRODUCTS)
             .get()
