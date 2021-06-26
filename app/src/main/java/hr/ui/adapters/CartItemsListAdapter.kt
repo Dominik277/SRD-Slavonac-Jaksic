@@ -3,7 +3,9 @@ package hr.ui.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemCartLayoutBinding
 import hr.model.CartItem
 import hr.util.GlideLoader
@@ -29,6 +31,31 @@ open class CartItemsListAdapter(
         holder.binding.tvCartItemTitle.text = model.title
         holder.binding.tvCartItemPrice.text = "$${model.price}"
         holder.binding.tvCartQuantity.text = model.cart_quantity
+
+        if (model.cart_quantity == "0"){
+            holder.binding.ibRemoveCartItem.visibility = android.view.View.GONE
+            holder.binding.ibAddCartItem.visibility = android.view.View.GONE
+
+            holder.binding.tvCartQuantity.text =
+                context.resources.getString(R.string.lbl_out_of_stock)
+
+            holder.binding.tvCartQuantity.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.design_default_color_error
+                )
+            )
+        }else{
+            holder.binding.ibRemoveCartItem.visibility = android.view.View.VISIBLE
+            holder.binding.ibAddCartItem.visibility = android.view.View.VISIBLE
+
+            holder.binding.tvCartQuantity.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    R.color.browser_actions_bg_grey
+                )
+            )
+        }
     }
 
     override fun getItemCount(): Int {
