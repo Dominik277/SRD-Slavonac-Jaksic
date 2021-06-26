@@ -34,17 +34,19 @@ class CartListActivity : BaseActivity() {
         hideProgressDialog()
 
         for (product in mProductList){
-            for (cart in cartList){
-                if (product.product_id == cart.product_id){
-                    cart.stock_quantity = product.stock_quantity
+            for (cartItem in cartList){
+                if (product.product_id == cartItem.product_id){
+                    cartItem.stock_quantity = product.stock_quantity
                     if (product.stock_quantity.toInt() == 0){
-                        cart.cart_quantity = product.stock_quantity
+                        cartItem.cart_quantity = product.stock_quantity
                     }
                 }
             }
         }
 
-        if (cartList.size > 0) {
+        mCartListItems = cartList
+
+        if (mCartListItems.size > 0) {
             binding.rvCartItemsList.visibility = View.VISIBLE
             binding.llCheckout.visibility = View.VISIBLE
             binding.tvNoCartItemFound.visibility = View.GONE
@@ -53,8 +55,16 @@ class CartListActivity : BaseActivity() {
             binding.rvCartItemsList.setHasFixedSize(true)
             val cartListAdapter = CartItemsListAdapter(this, cartList)
             binding.rvCartItemsList.adapter = cartListAdapter
+
             var subTotal: Double = 0.0
-            for (item in cartList) {
+            for (item in mCartListItems) {
+                val availableQuantity = item.stock_quantity.toInt()
+                if (availableQuantity > 0){
+                    val price = item.price.toDouble()
+                    val quantity = item.cart_quantity.toInt()
+                    subTotal += (price * quantity)
+                }
+
                 val price = item.price.toDouble()
                 val quantity = item.cart_quantity.toInt()
                 subTotal += (price * quantity)
