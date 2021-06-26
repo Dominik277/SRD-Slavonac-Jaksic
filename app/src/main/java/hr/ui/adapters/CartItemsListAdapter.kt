@@ -7,7 +7,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemCartLayoutBinding
+import hr.firestore.FirestoreClass
 import hr.model.CartItem
+import hr.ui.activities.CartListActivity
 import hr.util.GlideLoader
 
 open class CartItemsListAdapter(
@@ -55,6 +57,14 @@ open class CartItemsListAdapter(
                     R.color.browser_actions_bg_grey
                 )
             )
+        }
+        holder.binding.ibDeleteCartItem.setOnClickListener {
+            when(context){
+                is CartListActivity -> {
+                    context.showProgressDialog()
+                }
+            }
+            FirestoreClass().removeItemFromCart(context, model.id)
         }
     }
 

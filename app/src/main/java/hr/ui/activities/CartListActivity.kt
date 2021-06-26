@@ -2,6 +2,7 @@ package hr.ui.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityCartListBinding
@@ -101,6 +102,17 @@ class CartListActivity : BaseActivity() {
     private fun getCartItemsList() {
         //showProgressDialog()
         FirestoreClass().getCartList(this)
+    }
+
+    fun itemRemovedSuccess(){
+        hideProgressDialog()
+        Toast.makeText(
+            this,
+            resources.getString(R.string.msg_item_removed_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        getCartItemsList()
     }
 
     private fun setupActionBar() {
