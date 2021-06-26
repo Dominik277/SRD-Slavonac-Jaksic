@@ -277,6 +277,26 @@ class FirestoreClass {
             }
     }
 
+    fun updateMyCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>){
+        mFirestore.collection(Constants.CART_ITEMS)
+            .document(cart_id)
+            .update(itemHashMap)
+            .addOnSuccessListener {
+                when(context){
+                    is CartListActivity -> {
+                        context.itemUpdateSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when(context){
+                    is CartListActivity -> {
+                        context.hideProgressDialog()
+                    }
+                }
+            }
+    }
+
     fun checkIfItemExistInCart(activity: ProductDetailsActivity,productID: String){
         mFirestore.collection(Constants.CART_ITEMS)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())

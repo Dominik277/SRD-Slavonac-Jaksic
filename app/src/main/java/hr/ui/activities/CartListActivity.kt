@@ -104,6 +104,11 @@ class CartListActivity : BaseActivity() {
         FirestoreClass().getCartList(this)
     }
 
+    fun itemUpdateSuccess(){
+        hideProgressDialog()
+        getCartItemsList()
+    }
+
     fun itemRemovedSuccess(){
         hideProgressDialog()
         Toast.makeText(

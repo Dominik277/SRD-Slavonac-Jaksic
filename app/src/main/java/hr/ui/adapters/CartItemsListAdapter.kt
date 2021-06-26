@@ -66,6 +66,15 @@ open class CartItemsListAdapter(
             }
             FirestoreClass().removeItemFromCart(context, model.id)
         }
+
+        holder.binding.ibRemoveCartItem.setOnClickListener {
+
+        }
+
+        holder.binding.ibAddCartItem.setOnClickListener {
+            
+        }
+
     }
 
     override fun getItemCount(): Int {
