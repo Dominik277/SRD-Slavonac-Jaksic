@@ -13,6 +13,8 @@ import hr.ui.adapters.CartItemsListAdapter
 class CartListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCartListBinding
+    private lateinit var mProductList: ArrayList<Product>
+    private lateinit var mCartListItems: ArrayList<CartItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +26,23 @@ class CartListActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        getCartItemsList()
+        //getCartItemsList()
+        getProductList()
     }
 
     fun successCartItemsList(cartList: ArrayList<CartItem>) {
         hideProgressDialog()
+
+        for (product in mProductList){
+            for (cart in cartList){
+                if (product.product_id == cart.product_id){
+                    cart.stock_quantity = product.stock_quantity
+                    if (product.stock_quantity.toInt() == 0){
+                        cart.cart_quantity = product.stock_quantity
+                    }
+                }
+            }
+        }
 
         if (cartList.size > 0) {
             binding.rvCartItemsList.visibility = View.VISIBLE
@@ -64,11 +78,18 @@ class CartListActivity : BaseActivity() {
     }
 
     fun successProductsListFromFirestore(productList: ArrayList<Product>) {
+        hideProgressDialog()
+        mProductList = productList
+        getCartItemsList()
+    }
 
+    private fun getProductList() {
+        showProgressDialog()
+        FirestoreClass().getAllProductList(this)
     }
 
     private fun getCartItemsList() {
-        showProgressDialog()
+        //showProgressDialog()
         FirestoreClass().getCartList(this)
     }
 

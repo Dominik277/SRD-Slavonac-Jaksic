@@ -305,6 +305,7 @@ class FirestoreClass {
 
                     productList.add(product)
                 }
+                activity.successProductsListFromFirestore(productList)
             }
             .addOnFailureListener {
                 activity.hideProgressDialog()
