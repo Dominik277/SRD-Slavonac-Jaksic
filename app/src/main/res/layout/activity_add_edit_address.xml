@@ -24,7 +24,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/app_gradient_color_background"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="@dimen/btn_padding"
@@ -58,7 +58,7 @@
                     android:checked="true"
                     android:gravity="center"
                     android:text="@string/lbl_home"
-                    android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+                    android:textColor="@drawable/drawable_gender_tab_selector"
                     android:textStyle="bold" />
 
                 <RadioButton
@@ -72,7 +72,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/lbl_office"
-                    android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+                    android:textColor="@drawable/drawable_gender_tab_selector"
                     android:textStyle="bold" />
 
                 <RadioButton
@@ -84,7 +84,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/lbl_other"
-                    android:textColor="@drawable/drawable_gender_tab_text_color_selector"
+                    android:textColor="@drawable/drawable_gender_tab_selector"
                     android:textStyle="bold" />
 
             </RadioGroup>

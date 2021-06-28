@@ -1,5 +1,6 @@
 package hr.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.dominik.ribolovnodrustvojaksic.R
@@ -15,6 +16,11 @@ class AddressListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupActionBar()
+
+        binding.tvAddAddress.setOnClickListener{
+            val intent = Intent(this,AddEditAddressActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupActionBar(){
@@ -28,5 +34,4 @@ class AddressListActivity : AppCompatActivity() {
 
         binding.toolbarAddressListActivity.setNavigationOnClickListener { onBackPressed() }
     }
-
 }
