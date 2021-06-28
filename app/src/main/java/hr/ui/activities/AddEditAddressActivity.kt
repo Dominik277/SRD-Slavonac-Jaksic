@@ -19,6 +19,15 @@ class AddEditAddressActivity : BaseActivity() {
         setupActionBar()
     }
 
+    private fun saveAddressToFirestore(){
+        val fullName: String = binding.etFullName.text.toString().trim{ it <= ' '}
+        val phoneNumber: String = binding.etPhoneNumber.text.toString().trim{ it <= ' '}
+        val address: String = binding.etAddress.text.toString().trim{ it <= ' '}
+        val zipCode: String = binding.etZipCode.text.toString().trim{ it <= ' '}
+        val additionalNote: String = binding.etAdditionalNote.text.toString().trim{ it <= ' '}
+        val otherDetails: String = binding.etOtherDetails.text.toString().trim{ it <= ' '}
+    }
+
     private fun setupActionBar() {
         setSupportActionBar(binding.toolbarAddEditAddressActivity)
 
