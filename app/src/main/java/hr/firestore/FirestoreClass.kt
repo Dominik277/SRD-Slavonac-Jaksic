@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import hr.model.Address
 import hr.model.CartItem
 import hr.model.Product
 import hr.model.User
@@ -275,6 +276,10 @@ class FirestoreClass {
                     }
                 }
             }
+    }
+
+    fun addAddress(activity: AddEditAddressActivity, addressInfo: Address){
+
     }
 
     fun updateMyCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>){

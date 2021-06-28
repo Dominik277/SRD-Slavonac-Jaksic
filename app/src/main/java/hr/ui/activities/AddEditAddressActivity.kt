@@ -6,6 +6,9 @@ import android.text.TextUtils
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddEditAddressBinding
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddressListBinding
+import hr.firestore.FirestoreClass
+import hr.model.Address
+import hr.util.Constants
 
 class AddEditAddressActivity : BaseActivity() {
 
@@ -26,6 +29,32 @@ class AddEditAddressActivity : BaseActivity() {
         val zipCode: String = binding.etZipCode.text.toString().trim{ it <= ' '}
         val additionalNote: String = binding.etAdditionalNote.text.toString().trim{ it <= ' '}
         val otherDetails: String = binding.etOtherDetails.text.toString().trim{ it <= ' '}
+
+        if (validateData()){
+            showProgressDialog()
+
+            val addressType: String = when{
+                binding.rbHome.isChecked -> {
+                    Constants.HOME
+                }
+                binding.rbOffice.isChecked -> {
+                    Constants.OFFICE
+                }
+                else -> {
+                    Constants.OTHER
+                }
+            }
+            val addressModel = Address(
+                FirestoreClass().getCurrentUserID(),
+                fullName,
+                phoneNumber,
+                address,
+                zipCode,
+                additionalNote,
+                addressType,
+                otherDetails
+            )
+        }
     }
 
     private fun setupActionBar() {
