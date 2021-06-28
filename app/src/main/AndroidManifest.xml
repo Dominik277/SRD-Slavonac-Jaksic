@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RibolovnoDrustvoJaksic">
-        <activity android:name="hr.ui.activities.AddressListActivity"></activity>
+        <activity android:name="hr.ui.activities.AddEditAddressActivity"></activity>
+        <activity android:name="hr.ui.activities.AddressListActivity" />
         <activity android:name="hr.ui.activities.CartListActivity" />
         <activity
             android:name="hr.ui.activities.ProductDetailsActivity"
