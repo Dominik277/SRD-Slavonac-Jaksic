@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddressListBinding
+import hr.firestore.FirestoreClass
+import hr.model.Address
 
-class AddressListActivity : AppCompatActivity() {
+class AddressListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddressListBinding
 
@@ -16,6 +18,7 @@ class AddressListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupActionBar()
+        getAddressList()
 
         binding.tvAddAddress.setOnClickListener{
             val intent = Intent(this,AddEditAddressActivity::class.java)
@@ -34,4 +37,14 @@ class AddressListActivity : AppCompatActivity() {
 
         binding.toolbarAddressListActivity.setNavigationOnClickListener { onBackPressed() }
     }
+
+    fun successAddressListFromFirestore(addressList: ArrayList<Address>){
+        hideProgressDialog()
+    }
+
+    private fun getAddressList(){
+        showProgressDialog()
+        FirestoreClass().getAddressesList(this)
+    }
+
 }
