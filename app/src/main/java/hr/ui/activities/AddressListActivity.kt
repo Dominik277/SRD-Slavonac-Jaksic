@@ -3,10 +3,13 @@ package hr.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddressListBinding
 import hr.firestore.FirestoreClass
 import hr.model.Address
+import hr.ui.adapters.AddressListAdapter
 
 class AddressListActivity : BaseActivity() {
 
@@ -40,6 +43,19 @@ class AddressListActivity : BaseActivity() {
 
     fun successAddressListFromFirestore(addressList: ArrayList<Address>){
         hideProgressDialog()
+        if (addressList.size > 0){
+            binding.rvAddressList.visibility = View.VISIBLE
+            binding.tvNoAddress.visibility = View.GONE
+
+            binding.rvAddressList.layoutManager = LinearLayoutManager(this)
+            binding.rvAddressList.setHasFixedSize(true)
+
+            val addressAdapter = AddressListAdapter(this, addressList)
+            binding.rvAddressList.adapter = addressAdapter
+        }else{
+            binding.rvAddressList.visibility = View.GONE
+            binding.tvNoAddress.visibility = View.VISIBLE
+        }
     }
 
     private fun getAddressList(){
