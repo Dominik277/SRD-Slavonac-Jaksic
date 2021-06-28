@@ -103,4 +103,9 @@
     <string name="lbl_out_of_stock">Out of stock.</string>
     <string name="msg_item_removed_successfully">Item removed successfully</string>
     <string name="msg_for_available_stock">"Available  stock is  %1$s!. You canno't add more than the stock quantity.  "</string>
+
+    <string name="title_address_list">ADDRESS LIST</string>
+    <string name="no_address_found">No Address Found</string>
+    <string name="lbl_add_address">Add Address</string>
+
 </resources>
