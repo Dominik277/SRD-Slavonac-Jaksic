@@ -3,6 +3,8 @@ package hr.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
+import android.widget.Toast
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddEditAddressBinding
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddressListBinding
@@ -20,6 +22,17 @@ class AddEditAddressActivity : BaseActivity() {
         val view = binding.root
         setContentView(view)
         setupActionBar()
+
+        binding.btnSubmitAddress.setOnClickListener { saveAddressToFirestore() }
+        binding.rgType.setOnCheckedChangeListener {_, checkedId ->
+            if (checkedId == R.id.rb_other){
+                binding.tilOtherDetails.visibility = View.VISIBLE
+                binding.btnSubmitAddress.visibility = View.VISIBLE
+            }else{
+                binding.tilOtherDetails.visibility = View.GONE
+                binding.btnSubmitAddress.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun saveAddressToFirestore(){
@@ -54,7 +67,18 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
+            FirestoreClass().addAddress(this,addressModel)
+
         }
+    }
+
+    fun addUpdatedAddressSuccess(){
+        hideProgressDialog()
+        Toast.makeText(
+            this,
+            resources.getString(R.string.err_your_address_added_successfully),
+            Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun setupActionBar() {

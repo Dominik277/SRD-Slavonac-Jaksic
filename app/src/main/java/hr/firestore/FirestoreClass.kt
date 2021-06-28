@@ -279,7 +279,16 @@ class FirestoreClass {
     }
 
     fun addAddress(activity: AddEditAddressActivity, addressInfo: Address){
+        mFirestore.collection(Constants.ADDRESSES)
+            .document()
+            .set(addressInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addUpdatedAddressSuccess()
 
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+            }
     }
 
     fun updateMyCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>){
