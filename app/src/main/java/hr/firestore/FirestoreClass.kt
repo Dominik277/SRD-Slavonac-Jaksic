@@ -281,6 +281,33 @@ class FirestoreClass {
             }
     }
 
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<CartItem>){
+        val writeBatch = mFirestore.batch()
+        for (cartItem in cartList){
+            val productHashMap = HashMap<String, Any>()
+
+            productHashMap[Constants.STOCK_QUANTITY] =
+                (cartItem.stock_quantity.toInt() - cartItem.cart_quantity.toInt()).toString()
+
+            val documentReference = mFirestore.collection(Constants.PRODUCTS)
+                .document(cartItem.product_id)
+            writeBatch.update(documentReference,productHashMap)
+        }
+
+        for (cartItem in cartList){
+            val documentReference = mFirestore.collection(Constants.CART_ITEMS)
+                .document(cartItem.id)
+            writeBatch.delete(documentReference)
+        }
+        writeBatch.commit()
+            .addOnSuccessListener {
+                activity.allDetailsUpdatedSuccessfully()
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+            }
+    }
+
     fun placeOrder(activity: CheckoutActivity, order: Order){
         mFirestore.collection(Constants.ORDERS)
             .document()

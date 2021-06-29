@@ -59,17 +59,21 @@ class CheckoutActivity : BaseActivity() {
         FirestoreClass().getAllProductList(this)
     }
 
-    fun orderPlacedSuccess(){
+    fun allDetailsUpdatedSuccessfully(){
         hideProgressDialog()
         Toast.makeText(this,
-        "Your order placed successfully.",
-        Toast.LENGTH_LONG)
+            "Your order placed successfully.",
+            Toast.LENGTH_LONG)
             .show()
 
         val intent = Intent(this,DashboardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
+    }
+
+    fun orderPlacedSuccess(){
+        FirestoreClass().updateAllDetails(this,mCartItemsList)
     }
 
     fun successProductListFromFirestore(productList: ArrayList<Product>){
