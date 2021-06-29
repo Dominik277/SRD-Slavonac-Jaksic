@@ -11,10 +11,10 @@ data class SoldProduct(
     val sold_quantity: String = "",
     val image: String = "",
     val order_id: String = "",
-    val order_date: String = "",
+    val order_date: Long = 0L,
     val sub_total_amount: String = "",
     val shipping_charge: String = "",
     val total_amount: String = "",
     val address: Address = Address(),
     var id: String = ""
-):Parcelable
+): Parcelable
