@@ -99,16 +99,26 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
-            FirestoreClass().addAddress(this,addressModel)
-
+            if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()){
+                FirestoreClass().updateAddress(this,addressModel,mAddressDetails!!.id)
+            }else{
+                FirestoreClass().addAddress(this,addressModel)
+            }
         }
     }
 
     fun addUpdatedAddressSuccess(){
         hideProgressDialog()
+
+        val notifySuccessMessage: String = if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()){
+            resources.getString(R.string.msg_your_address_updated_successfully)
+        }else{
+            resources.getString(R.string.err_your_address_added_successfully)
+        }
+
         Toast.makeText(
             this,
-            resources.getString(R.string.err_your_address_added_successfully),
+            notifySuccessMessage,
             Toast.LENGTH_LONG).show()
         finish()
     }
