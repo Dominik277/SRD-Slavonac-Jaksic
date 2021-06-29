@@ -2,11 +2,14 @@ package hr.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firestore.v1.StructuredQuery
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityMyOrderDetailsBinding
 import hr.model.Order
+import hr.ui.adapters.CartItemsListAdapter
 import hr.util.Constants
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,7 +78,8 @@ class MyOrderDetailsActivity : AppCompatActivity() {
                         R.color.colorOrderStatusInProcess
                     )
                 )
-            }else -> {
+            }
+            else -> {
                 binding.tvOrderStatus.text = resources.getString(R.string.order_status_delivered)
                 binding.tvOrderStatus.setTextColor(
                     ContextCompat.getColor(
@@ -85,5 +89,29 @@ class MyOrderDetailsActivity : AppCompatActivity() {
                 )
             }
         }
+
+        binding.rvMyOrderItemsList.layoutManager = LinearLayoutManager(this)
+        binding.rvMyOrderItemsList.setHasFixedSize(true)
+
+        val cartListAdapter =
+            CartItemsListAdapter(this, orderDetails.items, false)
+        binding.rvMyOrderItemsList.adapter = cartListAdapter
+
+        binding.tvMyOrderDetailsAddressType.text = orderDetails.address.type
+        binding.tvMyOrderDetailsFullName.text = orderDetails.address.name
+        binding.tvMyOrderDetailsAddress.text = "${orderDetails.address.address}, ${orderDetails.address.zipCode}"
+        binding.tvMyOrderDetailsAdditionalNote.text = orderDetails.address.additionalNote
+
+        if (orderDetails.address.otherDetails.isNotEmpty()){
+            binding.tvMyOrderDetailsOtherDetails.visibility = View.VISIBLE
+            binding.tvMyOrderDetailsOtherDetails.text = orderDetails.address.otherDetails
+        }else{
+            binding.tvMyOrderDetailsOtherDetails.visibility = View.GONE
+        }
+        binding.tvMyOrderDetailsMobileNumber.text = orderDetails.address.mobileNumber
+        binding.tvOrderDetailsSubTotal.text = orderDetails.sub_total_amount
+        binding.tvOrderDetailsShippingCharge.text = orderDetails.shipping_charge
+        binding.tvOrderDetailsTotalAmount.text = orderDetails.total_amount
+
     }
 }
