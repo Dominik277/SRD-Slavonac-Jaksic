@@ -1,12 +1,15 @@
 package hr.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemListLayoutBinding
 import hr.model.Order
+import hr.ui.activities.MyOrderDetailsActivity
+import hr.util.Constants
 import hr.util.GlideLoader
 
 open class MyOrdersListAdapter(
@@ -26,7 +29,7 @@ open class MyOrdersListAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: MyOrdersListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
 
         GlideLoader(context).loadProductPicture(
@@ -37,6 +40,12 @@ open class MyOrdersListAdapter(
         holder.binding.tvItemName.text = model.title
         holder.binding.tvItemPrice.text = "$${model.total_amount}"
         holder.binding.ibDeleteProduct.visibility = View.GONE
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, MyOrderDetailsActivity::class.java)
+            intent.putExtra(Constants.EXTRA_MY_ORDERS_DETAILS, model)
+            context.startActivity(intent)
+        }
 
     }
 
