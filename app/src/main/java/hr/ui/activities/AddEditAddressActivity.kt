@@ -28,6 +28,33 @@ class AddEditAddressActivity : BaseActivity() {
             mAddressDetails = intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)
         }
 
+        if (mAddressDetails != null){
+            if (mAddressDetails!!.id.isNotEmpty()){
+                binding.tvTitle.text = resources.getString(R.string.title_edit_address)
+                binding.btnSubmitAddress.text = resources.getString(R.string.btn_lbl_update)
+
+                binding.etFullName.setText(mAddressDetails?.name)
+                binding.etPhoneNumber.setText(mAddressDetails?.mobileNumber)
+                binding.etAddress.setText(mAddressDetails?.address)
+                binding.etZipCode.setText(mAddressDetails?.zipCode)
+                binding.etAdditionalNote.setText(mAddressDetails?.additionalNote)
+
+                when(mAddressDetails?.type){
+                    Constants.HOME -> {
+                        binding.rbHome.isChecked = true
+                    }
+                    Constants.OFFICE -> {
+                        binding.rbOffice.isChecked = true
+                    }
+                    else -> {
+                        binding.rbOther.isChecked = true
+                        binding.tilOtherDetails.visibility = View.VISIBLE
+                        binding.etOtherDetails.setText(mAddressDetails?.otherDetails)
+                    }
+                }
+            }
+        }
+
         binding.btnSubmitAddress.setOnClickListener { saveAddressToFirestore() }
         binding.rgType.setOnCheckedChangeListener {_, checkedId ->
             if (checkedId == R.id.rb_other){

@@ -278,6 +278,18 @@ class FirestoreClass {
             }
     }
 
+    fun updateAddress(activity: AddEditAddressActivity, addressInfo: Address, addressId: String){
+        mFirestore.collection(Constants.ADDRESSES)
+            .document(addressId)
+            .set(addressInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addUpdatedAddressSuccess()
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+            }
+    }
+
     fun getAddressesList(activity: AddressListActivity){
         mFirestore.collection(Constants.ADDRESSES)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())

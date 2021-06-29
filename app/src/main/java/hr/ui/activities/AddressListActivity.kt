@@ -25,6 +25,7 @@ class AddressListActivity : BaseActivity() {
         setContentView(view)
         setupActionBar()
         getAddressList()
+        hideProgressDialog()
 
         binding.tvAddAddress.setOnClickListener{
             val intent = Intent(this,AddEditAddressActivity::class.java)
