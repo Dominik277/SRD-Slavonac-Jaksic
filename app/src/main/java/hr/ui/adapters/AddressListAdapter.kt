@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemAddressLayoutBinding
 import hr.model.Address
 import hr.ui.activities.AddEditAddressActivity
+import hr.ui.activities.CheckoutActivity
 import hr.util.Constants
 
 open class AddressListAdapter(
@@ -44,11 +45,9 @@ open class AddressListAdapter(
 
         if (selectAddress){
             holder.itemView.setOnClickListener {
-                Toast.makeText(
-                    context,
-                    "Selected address: ${model.address}, ˘${model.zipCode}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val intent = Intent(context,CheckoutActivity::class.java)
+                intent.putExtra(Constants.EXTRA_SELECTED_ADDRESS, model)
+                context.startActivity(intent)
             }
         }
     }
