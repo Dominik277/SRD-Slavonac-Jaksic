@@ -16,6 +16,7 @@ import hr.ui.activities.*
 import hr.ui.fragments.DashboardFragment
 import hr.ui.fragments.OrdersFragment
 import hr.ui.fragments.ProductsFragment
+import hr.ui.fragments.SoldProductsFragment
 import hr.util.Constants
 
 class FirestoreClass {
@@ -315,6 +316,24 @@ class FirestoreClass {
             }
             .addOnFailureListener {
                 activity.hideProgressDialog()
+            }
+    }
+
+    fun getSoldProductList(fragment: SoldProductsFragment){
+        mFirestore.collection(Constants.SOLD_PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<SoldProduct> = ArrayList()
+                for(i in document.documents){
+                    val soldProduct = i.toObject(SoldProduct::class.java)!!
+                    soldProduct.id = i.id
+
+                    list.add(soldProduct)
+                }
+            }
+            .addOnFailureListener {
+                fragment.hideProgressDialog()
             }
     }
 

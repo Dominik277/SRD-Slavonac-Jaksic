@@ -4,23 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentSoldProductsBinding
+import hr.dominik.ribolovnodrustvojaksic.R
+import hr.firestore.FirestoreClass
+import hr.model.SoldProduct
 
 class SoldProductsFragment: BaseFragment() {
-
-    private lateinit var binding: FragmentSoldProductsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_sold_products, container,false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentSoldProductsBinding.bind(view)
+    private fun getSoldProductList(){
+        showProgressDialog()
+        FirestoreClass().getSoldProductList(this)
+    }
+
+    fun successSoldProductList(soldProductsList: ArrayList<SoldProduct>){
+        hideProgressDialog()
+        if (soldProductsList.size > 0){
+
+        }else{
+
+        }
     }
 
 }
