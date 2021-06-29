@@ -1,6 +1,7 @@
 package hr.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityCheckoutBinding
@@ -17,6 +18,8 @@ class CheckoutActivity : BaseActivity() {
     private var mAddressDetails: Address? = null
     private lateinit var mProductList: ArrayList<Product>
     private lateinit var mCartItemsList: ArrayList<CartItem>
+    private var mSubTotal: Double = 0.0
+    private var mTotalAmount: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,10 @@ class CheckoutActivity : BaseActivity() {
         FirestoreClass().getCartList(this)
     }
 
+    private fun placeAnOrder(){
+        showProgressDialog()
+    }
+
     fun successCartItemList(cartList: ArrayList<CartItem>){
         hideProgressDialog()
         for (product in mProductList){
@@ -74,6 +81,27 @@ class CheckoutActivity : BaseActivity() {
 
         val cartListAdapter = CartItemsListAdapter(this,mCartItemsList,false)
         binding.rvCartListItems.adapter = cartListAdapter
+
+        for (item in mCartItemsList){
+            val availableQuantity = item.stock_quantity.toInt()
+            if (availableQuantity > 0 ){
+                val price = item.price.toDouble()
+                val quantity = item.cart_quantity.toInt()
+                mSubTotal += (price * quantity)
+            }
+        }
+
+        binding.tvCheckoutSubTotal.text = "$$mSubTotal"
+        binding.tvCheckoutShippingCharge.text = "$10.00"
+
+        if (mSubTotal > 0){
+            binding.llCheckoutPlaceOrder.visibility = View.VISIBLE
+             mTotalAmount = mSubTotal + 10.0
+            binding.tvCheckoutTotalAmount.text = "$$mTotalAmount"
+        }else{
+            binding.llCheckoutPlaceOrder.visibility = View.GONE
+        }
+
     }
 
     private fun setupActionBar() {
