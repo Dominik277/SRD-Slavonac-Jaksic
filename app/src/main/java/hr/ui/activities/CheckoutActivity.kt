@@ -1,12 +1,14 @@
 package hr.ui.activities
 
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityCheckoutBinding
 import hr.firestore.FirestoreClass
 import hr.model.Address
 import hr.model.CartItem
 import hr.model.Product
+import hr.ui.adapters.CartItemsListAdapter
 import hr.util.Constants
 
 class CheckoutActivity : BaseActivity() {
@@ -57,7 +59,21 @@ class CheckoutActivity : BaseActivity() {
 
     fun successCartItemList(cartList: ArrayList<CartItem>){
         hideProgressDialog()
+        for (product in mProductList){
+            for (cartItem in cartList){
+                if (product.product_id == cartItem.product_id){
+                    cartItem.stock_quantity = product.stock_quantity
+                }
+            }
+        }
+
         mCartItemsList = cartList
+
+        binding.rvCartListItems.layoutManager = LinearLayoutManager(this)
+        binding.rvCartListItems.setHasFixedSize(true)
+
+        val cartListAdapter = CartItemsListAdapter(this,mCartItemsList,false)
+        binding.rvCartListItems.adapter = cartListAdapter
     }
 
     private fun setupActionBar() {

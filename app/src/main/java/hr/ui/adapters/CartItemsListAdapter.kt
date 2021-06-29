@@ -2,6 +2,7 @@ package hr.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,8 @@ import hr.util.GlideLoader
 
 open class CartItemsListAdapter(
     private val context: Context,
-    private var list: ArrayList<CartItem>
+    private var list: ArrayList<CartItem>,
+    private val updateCartItems: Boolean
 ): RecyclerView.Adapter<CartItemsListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,8 +38,14 @@ open class CartItemsListAdapter(
         holder.binding.tvCartQuantity.text = model.cart_quantity
 
         if (model.cart_quantity == "0"){
-            holder.binding.ibRemoveCartItem.visibility = android.view.View.GONE
-            holder.binding.ibAddCartItem.visibility = android.view.View.GONE
+            holder.binding.ibRemoveCartItem.visibility = View.GONE
+            holder.binding.ibAddCartItem.visibility = View.GONE
+
+            if (updateCartItems){
+                holder.binding.ibDeleteCartItem.visibility = View.VISIBLE
+            }else{
+                holder.binding.ibDeleteCartItem.visibility = View.GONE
+            }
 
             holder.binding.tvCartQuantity.text =
                 context.resources.getString(R.string.lbl_out_of_stock)
@@ -49,8 +57,15 @@ open class CartItemsListAdapter(
                 )
             )
         }else{
-            holder.binding.ibRemoveCartItem.visibility = android.view.View.VISIBLE
-            holder.binding.ibAddCartItem.visibility = android.view.View.VISIBLE
+            if (updateCartItems){
+                holder.binding.ibRemoveCartItem.visibility = View.VISIBLE
+                holder.binding.ibAddCartItem.visibility = View.VISIBLE
+                holder.binding.ibDeleteCartItem.visibility = View.VISIBLE
+            }else{
+                holder.binding.ibRemoveCartItem.visibility = View.GONE
+                holder.binding.ibAddCartItem.visibility = View.GONE
+                holder.binding.ibDeleteCartItem.visibility = View.GONE
+            }
 
             holder.binding.tvCartQuantity.setTextColor(
                 ContextCompat.getColor(
