@@ -30,7 +30,7 @@ open class AddressListAdapter(
     fun notifyEditItem(activity: Activity, position: Int){
         val intent = Intent(context, AddEditAddressActivity::class.java)
         intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
-        activity.startActivity(intent)
+        activity.startActivityForResult(intent,Constants.ADD_ADDRESS_REQUEST_CODE)
         notifyItemChanged(position)
     }
 

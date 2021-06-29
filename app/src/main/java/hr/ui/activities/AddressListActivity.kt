@@ -1,5 +1,6 @@
 package hr.ui.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,6 +31,7 @@ class AddressListActivity : BaseActivity() {
         setupActionBar()
         getAddressList()
         hideProgressDialog()
+        getAddressList()
 
         binding.tvAddAddress.setOnClickListener{
             val intent = Intent(this,AddEditAddressActivity::class.java)
@@ -46,9 +48,12 @@ class AddressListActivity : BaseActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        getAddressList()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK){
+            getAddressList()
+        }
     }
 
     private fun setupActionBar(){
