@@ -4,12 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddressListBinding
 import hr.firestore.FirestoreClass
 import hr.model.Address
 import hr.ui.adapters.AddressListAdapter
+import hr.util.SwipeToEditCallback
 
 class AddressListActivity : BaseActivity() {
 
@@ -57,6 +60,19 @@ class AddressListActivity : BaseActivity() {
 
             val addressAdapter = AddressListAdapter(this, addressList)
             binding.rvAddressList.adapter = addressAdapter
+
+            val editSwipeHandler = object: SwipeToEditCallback(this){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val adapter = binding.rvAddressList.adapter as AddressListAdapter
+                    adapter.notifyEditItem(
+                        this@AddressListActivity,
+                        viewHolder.adapterPosition
+                    )
+                }
+            }
+            val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+            editItemTouchHelper.attachToRecyclerView(binding.rvAddressList)
+
         }else{
             binding.rvAddressList.visibility = View.GONE
             binding.tvNoAddress.visibility = View.VISIBLE

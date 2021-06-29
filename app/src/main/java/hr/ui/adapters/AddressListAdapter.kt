@@ -1,11 +1,15 @@
 package hr.ui.adapters
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemAddressLayoutBinding
 import hr.model.Address
+import hr.ui.activities.AddEditAddressActivity
+import hr.util.Constants
 
 open class AddressListAdapter(
     private val context: Context,
@@ -19,6 +23,13 @@ open class AddressListAdapter(
                 false
             )
         )
+    }
+
+    fun notifyEditItem(activity: Activity, position: Int){
+        val intent = Intent(context, AddEditAddressActivity::class.java)
+        intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
+        activity.startActivity(intent)
+        notifyItemChanged(position)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

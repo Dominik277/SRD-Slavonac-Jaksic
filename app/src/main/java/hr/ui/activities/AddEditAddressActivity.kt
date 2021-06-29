@@ -15,6 +15,7 @@ import hr.util.Constants
 class AddEditAddressActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddEditAddressBinding
+    private var mAddressDetails: Address? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,10 @@ class AddEditAddressActivity : BaseActivity() {
         val view = binding.root
         setContentView(view)
         setupActionBar()
+
+        if (intent.hasExtra(Constants.EXTRA_ADDRESS_DETAILS)){
+            mAddressDetails = intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)
+        }
 
         binding.btnSubmitAddress.setOnClickListener { saveAddressToFirestore() }
         binding.rgType.setOnCheckedChangeListener {_, checkedId ->

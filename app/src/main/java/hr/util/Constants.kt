@@ -43,6 +43,7 @@ object Constants {
     const val OTHER: String = "Other"
 
     const val ADDRESSES: String = "addresses"
+    const val EXTRA_ADDRESS_DETAILS: String = "AddressDetails"
 
     fun showImageChooser(activity: Activity){
         //An intent for launching the image selection of phone storage
