@@ -1,16 +1,20 @@
 package hr.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityCheckoutBinding
+import hr.firestore.FirestoreClass
 import hr.model.Address
+import hr.model.CartItem
+import hr.model.Product
 import hr.util.Constants
 
-class CheckoutActivity : AppCompatActivity() {
+class CheckoutActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCheckoutBinding
     private var mAddressDetails: Address? = null
+    private lateinit var mProductList: ArrayList<Product>
+    private lateinit var mCartItemsList: ArrayList<CartItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +22,7 @@ class CheckoutActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupActionBar()
+        getProductList()
 
         if (intent.hasExtra(Constants.EXTRA_SELECTED_ADDRESS)){
             mAddressDetails = intent.getParcelableExtra<Address>(Constants.EXTRA_SELECTED_ADDRESS)
@@ -34,6 +39,25 @@ class CheckoutActivity : AppCompatActivity() {
             }
             binding.tvCheckoutMobileNumber.text = mAddressDetails?.mobileNumber
         }
+    }
+
+    private fun getProductList(){
+        showProgressDialog()
+        FirestoreClass().getAllProductList(this)
+    }
+
+    fun successProductListFromFirestore(productList: ArrayList<Product>){
+        mProductList = productList
+        getCartItemList()
+    }
+
+    private fun getCartItemList(){
+        FirestoreClass().getCartList(this)
+    }
+
+    fun successCartItemList(cartList: ArrayList<CartItem>){
+        hideProgressDialog()
+        mCartItemsList = cartList
     }
 
     private fun setupActionBar() {

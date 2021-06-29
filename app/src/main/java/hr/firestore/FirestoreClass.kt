@@ -267,11 +267,17 @@ class FirestoreClass {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
+                    is CheckoutActivity -> {
+                        activity.successCartItemList(list)
+                    }
                 }
             }
             .addOnFailureListener {
                 when(activity){
                     is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is CheckoutActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
@@ -390,7 +396,7 @@ class FirestoreClass {
             }
     }
 
-    fun getAllProductList(activity: CartListActivity){
+    fun getAllProductList(activity: Activity){
         mFirestore.collection(Constants.PRODUCTS)
             .get()
             .addOnSuccessListener { document ->
@@ -401,10 +407,24 @@ class FirestoreClass {
 
                     productList.add(product)
                 }
-                activity.successProductsListFromFirestore(productList)
+                when(activity){
+                    is CartListActivity -> {
+                        activity.successProductsListFromFirestore(productList)
+                    }
+                    is CheckoutActivity -> {
+                        activity.successProductListFromFirestore(productList)
+                    }
+                }
             }
             .addOnFailureListener {
-                activity.hideProgressDialog()
+                when(activity){
+                    is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is CheckoutActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
             }
     }
 
