@@ -14,6 +14,7 @@ import com.google.firebase.storage.StorageReference
 import hr.model.*
 import hr.ui.activities.*
 import hr.ui.fragments.DashboardFragment
+import hr.ui.fragments.OrdersFragment
 import hr.ui.fragments.ProductsFragment
 import hr.util.Constants
 
@@ -305,6 +306,27 @@ class FirestoreClass {
             }
             .addOnFailureListener {
                 activity.hideProgressDialog()
+            }
+    }
+
+    fun getMyOrderList(fragment: OrdersFragment){
+        mFirestore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents){
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+                fragment.populateOrderListInUI(list)
+
+            }
+            .addOnFailureListener {
+                fragment.hideProgressDialog()
             }
     }
 
