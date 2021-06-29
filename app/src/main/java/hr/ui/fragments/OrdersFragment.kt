@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.databinding.FragmentOrdersBinding
 import hr.firestore.FirestoreClass
 import hr.model.Order
+import hr.ui.adapters.MyOrdersListAdapter
 
 class OrdersFragment : BaseFragment() {
 
@@ -26,6 +28,11 @@ class OrdersFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        getMyOrdersList()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -34,6 +41,19 @@ class OrdersFragment : BaseFragment() {
     fun populateOrderListInUI(orderList: ArrayList<Order>){
         hideProgressDialog()
 
+        if (orderList.size > 0){
+            binding.rvMyOrderItems.visibility = View.VISIBLE
+            binding.tvNoOrdersFound.visibility = View.GONE
+
+            binding.rvMyOrderItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyOrderItems.setHasFixedSize(true)
+
+            val myOrdersAdapter = MyOrdersListAdapter(requireActivity(),orderList)
+            binding.rvMyOrderItems.adapter = myOrdersAdapter
+        }else{
+            binding.rvMyOrderItems.visibility = View.GONE
+            binding.tvNoOrdersFound.visibility = View.VISIBLE
+        }
 
     }
 
