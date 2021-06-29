@@ -129,5 +129,6 @@
     <string name="mgs_your_address_updated_successfully">Your address is updated successfully.</string>
     <string name="msg_your_address_updated_successfully">Your address updated successfully.</string>
     <string name="err_your_address_deleted_successfully">Your address was deleted successfully.</string>
+    <string name="title_select_address">SELECT ADDRESS</string>
 
 </resources>

@@ -13,12 +13,14 @@ import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityAddressListBinding
 import hr.firestore.FirestoreClass
 import hr.model.Address
 import hr.ui.adapters.AddressListAdapter
+import hr.util.Constants
 import hr.util.SwipeToDeleteCallback
 import hr.util.SwipeToEditCallback
 
 class AddressListActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddressListBinding
+    private var mSelectedAddress: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +33,17 @@ class AddressListActivity : BaseActivity() {
 
         binding.tvAddAddress.setOnClickListener{
             val intent = Intent(this,AddEditAddressActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,Constants.ADD_ADDRESS_REQUEST_CODE)
         }
+
+        if (intent.hasExtra(Constants.EXTRA_SELECT_ADDRESS)){
+            mSelectedAddress = intent.getBooleanExtra(Constants.EXTRA_SELECT_ADDRESS,false)
+        }
+
+        if (mSelectedAddress){
+            binding.tvTitle.text = resources.getString(R.string.title_select_address)
+        }
+
     }
 
     override fun onResume() {
@@ -61,32 +72,34 @@ class AddressListActivity : BaseActivity() {
             binding.rvAddressList.layoutManager = LinearLayoutManager(this)
             binding.rvAddressList.setHasFixedSize(true)
 
-            val addressAdapter = AddressListAdapter(this, addressList)
+            val addressAdapter = AddressListAdapter(this, addressList,mSelectedAddress)
             binding.rvAddressList.adapter = addressAdapter
 
-            val editSwipeHandler = object: SwipeToEditCallback(this){
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val adapter = binding.rvAddressList.adapter as AddressListAdapter
-                    adapter.notifyEditItem(
-                        this@AddressListActivity,
-                        viewHolder.adapterPosition
-                    )
+            if (!mSelectedAddress){
+                val editSwipeHandler = object: SwipeToEditCallback(this){
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        val adapter = binding.rvAddressList.adapter as AddressListAdapter
+                        adapter.notifyEditItem(
+                            this@AddressListActivity,
+                            viewHolder.adapterPosition
+                        )
+                    }
                 }
-            }
 
-            val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
-            editItemTouchHelper.attachToRecyclerView(binding.rvAddressList)
+                val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+                editItemTouchHelper.attachToRecyclerView(binding.rvAddressList)
 
-            val deleteSwipeHandler = object: SwipeToDeleteCallback(this){
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    showProgressDialog()
-                    FirestoreClass().deleteAddress(this@AddressListActivity,
-                        addressList[viewHolder.adapterPosition].id)
+                val deleteSwipeHandler = object: SwipeToDeleteCallback(this){
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        showProgressDialog()
+                        FirestoreClass().deleteAddress(this@AddressListActivity,
+                            addressList[viewHolder.adapterPosition].id)
+                    }
                 }
-            }
 
-            val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
-            deleteItemTouchHelper.attachToRecyclerView(binding.rvAddressList)
+                val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
+                deleteItemTouchHelper.attachToRecyclerView(binding.rvAddressList)
+            }
 
         }else{
             binding.rvAddressList.visibility = View.GONE

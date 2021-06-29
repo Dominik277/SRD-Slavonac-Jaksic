@@ -1,5 +1,6 @@
 package hr.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import hr.firestore.FirestoreClass
 import hr.model.CartItem
 import hr.model.Product
 import hr.ui.adapters.CartItemsListAdapter
+import hr.util.Constants
 
 class CartListActivity : BaseActivity() {
 
@@ -23,6 +25,12 @@ class CartListActivity : BaseActivity() {
         val view = binding.root
         setContentView(view)
         setupActionBar()
+
+        binding.btnCheckout.setOnClickListener {
+            val intent = Intent(this,AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS,true)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

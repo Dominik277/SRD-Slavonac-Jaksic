@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemAddressLayoutBinding
 import hr.model.Address
@@ -13,7 +14,8 @@ import hr.util.Constants
 
 open class AddressListAdapter(
     private val context: Context,
-    private var list: ArrayList<Address>
+    private var list: ArrayList<Address>,
+    private val selectAddress: Boolean
 ): RecyclerView.Adapter<AddressListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -39,6 +41,16 @@ open class AddressListAdapter(
         holder.binding.tvAddressType.text = model.type
         holder.binding.tvAddressDetails.text = "${model.address}, ${model.zipCode}"
         holder.binding.tvAddressMobileNumber.text = model.mobileNumber
+
+        if (selectAddress){
+            holder.itemView.setOnClickListener {
+                Toast.makeText(
+                    context,
+                    "Selected address: ${model.address}, ˘${model.zipCode}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun getItemCount(): Int {
