@@ -11,10 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import hr.model.Address
-import hr.model.CartItem
-import hr.model.Product
-import hr.model.User
+import hr.model.*
 import hr.ui.activities.*
 import hr.ui.fragments.DashboardFragment
 import hr.ui.fragments.ProductsFragment
@@ -281,6 +278,18 @@ class FirestoreClass {
                         activity.hideProgressDialog()
                     }
                 }
+            }
+    }
+
+    fun placeOrder(activity: CheckoutActivity, order: Order){
+        mFirestore.collection(Constants.ORDERS)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.orderPlacedSuccess()
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
             }
     }
 

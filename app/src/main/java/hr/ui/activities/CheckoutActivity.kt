@@ -1,13 +1,16 @@
 package hr.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.dominik.ribolovnodrustvojaksic.R
 import hr.dominik.ribolovnodrustvojaksic.databinding.ActivityCheckoutBinding
 import hr.firestore.FirestoreClass
 import hr.model.Address
 import hr.model.CartItem
+import hr.model.Order
 import hr.model.Product
 import hr.ui.adapters.CartItemsListAdapter
 import hr.util.Constants
@@ -44,11 +47,29 @@ class CheckoutActivity : BaseActivity() {
             }
             binding.tvCheckoutMobileNumber.text = mAddressDetails?.mobileNumber
         }
+
+        getProductList()
+        binding.btnPlaceOrder.setOnClickListener{
+            placeAnOrder()
+        }
     }
 
     private fun getProductList(){
         showProgressDialog()
         FirestoreClass().getAllProductList(this)
+    }
+
+    fun orderPlacedSuccess(){
+        hideProgressDialog()
+        Toast.makeText(this,
+        "Your order placed successfully.",
+        Toast.LENGTH_LONG)
+            .show()
+
+        val intent = Intent(this,DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     fun successProductListFromFirestore(productList: ArrayList<Product>){
@@ -62,6 +83,21 @@ class CheckoutActivity : BaseActivity() {
 
     private fun placeAnOrder(){
         showProgressDialog()
+
+        if (mAddressDetails != null){
+            val order = Order(
+                FirestoreClass().getCurrentUserID(),
+                mCartItemsList,
+                mAddressDetails!!,
+                "My order ${System.currentTimeMillis()}",
+                mCartItemsList[0].image,
+                mSubTotal.toString(),
+                "10.00",
+                mTotalAmount.toString()
+            )
+
+            FirestoreClass().placeOrder(this,order)
+        }
     }
 
     fun successCartItemList(cartList: ArrayList<CartItem>){
