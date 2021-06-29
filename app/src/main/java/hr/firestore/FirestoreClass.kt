@@ -286,7 +286,7 @@ class FirestoreClass {
         val writeBatch = mFirestore.batch()
         for (cartItem in cartList){
             val soldProduct = SoldProduct(
-                FirestoreClass().getCurrentUserID(),
+                cartItem.product_owner_id,
                 cartItem.title,
                 cartItem.price,
                 cartItem.cart_quantity,
