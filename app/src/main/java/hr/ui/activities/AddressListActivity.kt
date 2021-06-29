@@ -29,6 +29,11 @@ class AddressListActivity : BaseActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getAddressList()
+    }
+
     private fun setupActionBar(){
         setSupportActionBar(binding.toolbarAddressListActivity)
 
