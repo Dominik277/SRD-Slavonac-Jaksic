@@ -1,12 +1,15 @@
 package hr.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemListLayoutBinding
 import hr.model.SoldProduct
+import hr.ui.activities.SoldProductDetailsActivity
+import hr.util.Constants
 import hr.util.GlideLoader
 
 class SoldProductsListAdapter(
@@ -33,6 +36,12 @@ class SoldProductsListAdapter(
         holder.binding.tvItemName.text = model.title
         holder.binding.tvItemPrice.text = "$${model.price}"
         holder.binding.ibDeleteProduct.visibility = View.GONE
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, SoldProductDetailsActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SOLD_PRODUCT_DETAILS,model)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
