@@ -55,5 +55,4 @@ class SoldProductsFragment: BaseFragment() {
             binding.tvNoSoldProductsFound.visibility = View.VISIBLE
         }
     }
-
 }
