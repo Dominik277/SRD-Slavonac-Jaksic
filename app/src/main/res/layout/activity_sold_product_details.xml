@@ -44,7 +44,7 @@
                         android:textSize="@dimen/sold_details_label_value_textSize" />
 
                     <TextView
-                        android:id="@+id/tv_order_details_id"
+                        android:id="@+id/tv_sold_product_details_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
@@ -68,7 +68,7 @@
                         android:textSize="@dimen/sold_details_label_value_textSize" />
 
                     <TextView
-                        android:id="@+id/tv_order_details_date"
+                        android:id="@+id/tv_sold_product_details_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
