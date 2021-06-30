@@ -2,10 +2,12 @@ package hr.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hr.dominik.ribolovnodrustvojaksic.databinding.ItemListLayoutBinding
 import hr.model.SoldProduct
+import hr.util.GlideLoader
 
 class SoldProductsListAdapter(
     private val context: Context,
@@ -23,7 +25,14 @@ class SoldProductsListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val model = list[position]
 
+        GlideLoader(context).loadProductPicture(
+            model.image,
+            holder.binding.ivItemImage)
+        holder.binding.tvItemName.text = model.title
+        holder.binding.tvItemPrice.text = "$${model.price}"
+        holder.binding.ibDeleteProduct.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {

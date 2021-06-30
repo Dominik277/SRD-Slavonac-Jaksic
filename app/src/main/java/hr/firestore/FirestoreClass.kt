@@ -331,6 +331,7 @@ class FirestoreClass {
 
                     list.add(soldProduct)
                 }
+                fragment.successSoldProductList(list)
             }
             .addOnFailureListener {
                 fragment.hideProgressDialog()
